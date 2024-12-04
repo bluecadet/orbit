@@ -1,5 +1,5 @@
 {
-  "name": "@bluecadet/orbit-vanilla",
+  "name": "@bluecadet/orbit-react",
   "version": "0.0.0",
   "sideEffects": false,
   "license": "MIT",
@@ -9,23 +9,24 @@
       "types": "./dist/orbit-parallax.d.ts",
       "import": "./dist/orbit-parallax.js",
       "require": "./dist/orbit-parallax.cjs"
-    },
-    "./custom-elements.json": "./dist/custom-elements.json"
+    }
   },
   "scripts": {
-    "build:manifest": "cem analyze --litelement --globs 'src/**/*.ts' --outdir dist",
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.10.3",
     "@repo/typescript-config": "*",
     "tsup": "^8.0.2",
     "typescript": "5.5.4"
   },
+  "dependencies": {
+    "@bluecadet/orbit-vanilla": "0.0.0",
+    "@lit/react": "^1.0.6"
+  },
   "peerDependencies": {
-    "lit": "^3.2.1"
+    "react": "^18.3.1 || ^19.0.0"
   },
   "publishConfig": {
     "access": "public"
