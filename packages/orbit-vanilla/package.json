@@ -1,0 +1,30 @@
+{
+  "name": "@bluecadet/orbit-vanilla",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./button": {
+      "types": "./src/orbit-parallax.ts",
+      "import": "./dist/orbit-parallax.mjs",
+      "require": "./dist/orbit-parallax.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "tsup": "^8.0.2",
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
