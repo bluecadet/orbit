@@ -36,3 +36,19 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# storybook
+*storybook.log
+storybook-static

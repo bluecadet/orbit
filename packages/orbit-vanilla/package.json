@@ -5,10 +5,10 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "./button": {
-      "types": "./src/orbit-parallax.ts",
-      "import": "./dist/orbit-parallax.mjs",
-      "require": "./dist/orbit-parallax.js"
+    "./orbit-parallax": {
+      "types": "./dist/orbit-parallax.d.ts",
+      "import": "./dist/orbit-parallax.js",
+      "require": "./dist/orbit-parallax.cjs"
     }
   },
   "scripts": {
@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
+    "lit": "^3.2.1",
     "tsup": "^8.0.2",
     "typescript": "5.5.4"
   },

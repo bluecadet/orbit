@@ -1,0 +1,25 @@
+{
+  "name": "@repo/storybook",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "dependencies": {
+    "@bluecadet/orbit-vanilla": "*",
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.2",
+    "@storybook/addon-essentials": "^8.4.6",
+    "@storybook/blocks": "^8.4.6",
+    "@storybook/test": "^8.4.6",
+    "@storybook/web-components": "^8.4.6",
+    "@storybook/web-components-vite": "^8.4.6",
+    "storybook": "^8.4.6",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1"
+  }
+}
