@@ -1,11 +1,10 @@
 {
-  "name": "orbit",
+  "name": "@bluecadet/orbit",
   "private": true,
   "scripts": {
     "build": "nx run-many --target=build --all",
     "dev": "nx run-many --target=dev --all --parallel",
     "clean": "nx reset && rm -rf node_modules",
-    "test": "nx run-many --target=test --all",
     "lint": "nx run-many --target=lint --all",
     "graph": "nx graph"
   },

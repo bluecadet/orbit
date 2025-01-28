@@ -26,7 +26,7 @@
     "build:manifest": "cem analyze --litelement --globs 'src/**/*.ts' --outdir dist",
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",

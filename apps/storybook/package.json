@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf storybook-static"
+    "clean": "rm -rf node_modules && rm -rf storybook-static"
   },
   "dependencies": {
     "@bluecadet/orbit-vanilla": "*",
