@@ -1,18 +1,22 @@
 import { html, css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { cancelFrame, frame } from "motion";
+import { scroll } from "motion";
 
 // Shared state manager for all parallax instances
 class ParallaxManager {
   private static instance: ParallaxManager;
   private elements: Set<OrbitParallax> = new Set();
-  private frameSubscription: ReturnType<typeof frame['update']> | null = null;
+  private scrollSubscription: ReturnType<typeof scroll> | null = null;
   private viewportHeight: number = window.innerHeight;
 
   private constructor() {
     // Set up resize observer for viewport height changes
     window.addEventListener('resize', () => {
       this.viewportHeight = window.innerHeight;
+      // Recalculate visibility ranges for all elements
+      this.elements.forEach(element => {
+        this.calculateVisibilityRange(element);
+      });
     }, { passive: true });
   }
 
@@ -24,10 +28,14 @@ class ParallaxManager {
   }
 
   addElement(element: OrbitParallax) {
-    if (this.elements.size === 0) {
+    const wasEmpty = this.elements.size === 0;
+    this.elements.add(element);
+    this.calculateVisibilityRange(element);
+    
+    // Start scroll subscription if this is the first element
+    if (wasEmpty) {
       this.startUpdates();
     }
-    this.elements.add(element);
   }
 
   removeElement(element: OrbitParallax) {
@@ -37,26 +45,49 @@ class ParallaxManager {
     }
   }
 
-  private startUpdates() {
-    console.log('start updates');
+  /**
+   * Calculate the range in which an element needs to be updated
+   * This is based on the element's height, speed, and the viewport height
+   */
+  private calculateVisibilityRange(element: OrbitParallax) {
+    const rect = element.getBoundingClientRect();
+    const elementGlobalTop = rect.top + window.scrollY;
+    const maxTravelDistance = (rect.height / 2) * Math.abs(1 - element.speed);
 
-    this.frameSubscription = frame.update(() => {
-      this.updateElements();
-    }, true);
+    // The element needs to be updated when it's within one viewport height plus its max travel distance
+    element.updateRange = {
+      start: elementGlobalTop - this.viewportHeight - maxTravelDistance,
+      end: elementGlobalTop + rect.height + maxTravelDistance,
+      maxTravel: maxTravelDistance
+    };
   }
 
-  private stopUpdates() {
-    if (this.frameSubscription) {
-      cancelFrame(this.frameSubscription);
-      this.frameSubscription = null;
+  private startUpdates() {
+    if (!this.scrollSubscription) {
+      this.scrollSubscription = scroll((_, {y}) => {
+        this.updateElements(y.current)
+      })
     }
   }
 
-  private updateElements() {
-    console.log('updating');
+  private stopUpdates() {
+    if (this.scrollSubscription) {
+      this.scrollSubscription();
+      this.scrollSubscription = null;
+    }
+  }
+
+  private updateElements(scrollY: number) {
     const viewportCenter = this.viewportHeight / 2;
     
     for (const element of this.elements) {
+      // Skip if element is outside its update range
+      if (!element.updateRange || 
+          scrollY < element.updateRange.start || 
+          scrollY > element.updateRange.end) {
+        continue;
+      }
+
       const rect = element.getBoundingClientRect();
       const elementCenter = rect.top + (rect.height / 2);
       
@@ -66,8 +97,11 @@ class ParallaxManager {
       // -1 = element is at bottom
       const distanceFromCenter = (viewportCenter - elementCenter) / (this.viewportHeight / 2);
       
+      // Clamp the distance based on max travel
+      const clampedDistance = Math.max(-1, Math.min(1, distanceFromCenter));
+      
       // Apply parallax transform
-      const offset = distanceFromCenter * (1- element.speed) * (rect.height / 2);
+      const offset = clampedDistance * (1 - element.speed) * (rect.height / 2);
       element.style.transform = `translate3d(0, ${offset}px, 0)`;
     }
   }
@@ -93,6 +127,16 @@ export class OrbitParallax extends LitElement {
    * 1.0 means the element moves at the same speed as scrolling.
    */
   @property({ type: Number }) speed = 0.5;
+
+  /**
+   * The range in which this element needs to be updated
+   * @internal
+   */
+  updateRange?: {
+    start: number;
+    end: number;
+    maxTravel: number;
+  };
 
   private manager: ParallaxManager = ParallaxManager.getInstance();
 
