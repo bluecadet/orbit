@@ -1,6 +1,7 @@
-import { html, css, LitElement } from 'lit';
+import { html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { scroll } from "motion";
+import { MotionAwareElement } from './motion-preference';
 
 /**
  * Represents the range in which a parallax element should be updated.
@@ -180,7 +181,7 @@ class ParallaxManager {
  * ```
  */
 @customElement('orbit-parallax')
-export class OrbitParallax extends LitElement {
+export class OrbitParallax extends MotionAwareElement {
   static styles = css`
     :host {
       display: block;
@@ -238,16 +239,26 @@ export class OrbitParallax extends LitElement {
     this.style.transform = `translate3d(0, ${offset}px, 0)`;
   }
 
+  protected override onMotionPreferenceChange(): void {
+    if (this.reducedMotion) {
+      ParallaxManager.getInstance().removeElement(this);
+    } else {
+      ParallaxManager.getInstance().addElement(this, {
+        updateVisibilityRange: this.#updateVisibilityRange.bind(this),
+        updateTransform: this.#updateTransform.bind(this),
+        visibilityRange: this.#visibilityRange
+      });
+    }
+  }
+
   /**
    * Register with ParallaxManager and provide private API implementation
    */
   connectedCallback() {
     super.connectedCallback();
-    ParallaxManager.getInstance().addElement(this, {
-      updateVisibilityRange: this.#updateVisibilityRange.bind(this),
-      updateTransform: this.#updateTransform.bind(this),
-      get visibilityRange() { return this.#visibilityRange; }
-    });
+
+    // Ensure motion preference is checked on connect
+    this.onMotionPreferenceChange();
   }
 
   /**

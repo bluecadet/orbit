@@ -10,6 +10,16 @@
       "import": "./dist/orbit-parallax.js",
       "require": "./dist/orbit-parallax.cjs"
     },
+    "./motion-preference": {
+      "types": "./dist/motion-preference.d.ts",
+      "import": "./dist/motion-preference.js",
+      "require": "./dist/motion-preference.cjs"
+    },
+    "./orbit-motion-toggle": {
+      "types": "./dist/orbit-motion-toggle.d.ts",
+      "import": "./dist/orbit-motion-toggle.js",
+      "require": "./dist/orbit-motion-toggle.cjs"
+    },
     "./custom-elements.json": "./dist/custom-elements.json"
   },
   "scripts": {
@@ -21,8 +31,7 @@
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@repo/typescript-config": "*",
-    "tsup": "^8.0.2",
-    "typescript": "5.5.4"
+    "tsup": "^8.0.2"
   },
   "peerDependencies": {
     "lit": "^3.2.1"

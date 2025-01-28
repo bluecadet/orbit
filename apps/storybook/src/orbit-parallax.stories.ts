@@ -3,7 +3,7 @@ import { html } from 'lit';
 import "@bluecadet/orbit-vanilla/orbit-parallax";
 
 const meta: Meta = {
-  title: 'Components/Orbit Parallax',
+  title: 'Components/Parallax',
   component: 'orbit-parallax',
   tags: ['autodocs'],
   parameters: {
