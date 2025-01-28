@@ -52,3 +52,6 @@ yarn-error.log*
 # storybook
 *storybook.log
 storybook-static
+
+# AI Agent rules
+.windsurfrules
