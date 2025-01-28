@@ -2,14 +2,17 @@
   "name": "orbit",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "clean:root": "rm -rf .turbo && rm -rf node_modules",
-    "clean": "turbo clean clean:root"
+    "build": "nx run-many --target=build --all",
+    "dev": "nx run-many --target=dev --all --parallel",
+    "clean": "nx reset && rm -rf node_modules",
+    "test": "nx run-many --target=test --all",
+    "lint": "nx run-many --target=lint --all",
+    "graph": "nx graph"
   },
   "devDependencies": {
+    "@nx/workspace": "latest",
+    "nx": "latest",
     "prettier": "^3.2.5",
-    "turbo": "^2.3.3",
     "typescript": "^5.7.3"
   },
   "engines": {

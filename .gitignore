@@ -55,3 +55,8 @@ storybook-static
 
 # AI Agent rules
 .windsurfrules
+
+
+
+.nx/cache
+.nx/workspace-data
