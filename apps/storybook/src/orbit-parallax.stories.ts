@@ -1,13 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import type { Meta, StoryObj } from "@storybook/web-components";
+import { html } from "lit";
+
 import "@bluecadet/orbit-vanilla/orbit-parallax";
 
 const meta: Meta = {
-  title: 'Components/Parallax',
-  component: 'orbit-parallax',
-  tags: ['autodocs'],
+  title: "Components/Parallax",
+  component: "orbit-parallax",
+  tags: ["autodocs"],
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   decorators: [
     (story) => html`
@@ -20,13 +21,14 @@ const meta: Meta = {
           Scroll up to see the parallax effect
         </div>
       </div>
-    `
+    `,
   ],
   argTypes: {
     speed: {
-      control: { type: 'range', min: -2, max: 2, step: 0.1 },
-      description: 'Speed of the parallax effect. Positive values move up, negative values move down.',
-    }
+      control: { type: "range", min: -2, max: 2, step: 0.1 },
+      description:
+        "Speed of the parallax effect. Positive values move up, negative values move down.",
+    },
   },
 };
 
@@ -37,34 +39,34 @@ type Story = StoryObj;
 export const MultipleElements: Story = {
   render: () => html`
     <div style="display: flex; gap: 2rem; justify-content: center;">
-      <orbit-parallax 
-        speed="-0.5"
-        style="flex:1; aspect-ratio:1/1;">
-        <div style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;">
+      <orbit-parallax speed="-0.5" style="flex:1; aspect-ratio:1/1;">
+        <div
+          style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;"
+        >
           Speed: -0.5
         </div>
       </orbit-parallax>
-      
-      <orbit-parallax 
-        speed="0.5"
-        style="flex:1; aspect-ratio:1/1;">
-        <div style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;">
+
+      <orbit-parallax speed="0.5" style="flex:1; aspect-ratio:1/1;">
+        <div
+          style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;"
+        >
           Speed: 0.5
         </div>
       </orbit-parallax>
-      
-      <orbit-parallax 
-        speed="1"
-        style="flex:1; aspect-ratio:1/1;">
-        <div style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;">
+
+      <orbit-parallax speed="1" style="flex:1; aspect-ratio:1/1;">
+        <div
+          style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;"
+        >
           Speed: 1.0
         </div>
       </orbit-parallax>
 
-      <orbit-parallax 
-        speed="1.5"
-        style="flex:1; aspect-ratio:1/1;">
-        <div style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;">
+      <orbit-parallax speed="1.5" style="flex:1; aspect-ratio:1/1;">
+        <div
+          style="background: coral; width: 100%; height: 100%; display: grid; place-items: center; color: white;"
+        >
           Speed: 1.5
         </div>
       </orbit-parallax>

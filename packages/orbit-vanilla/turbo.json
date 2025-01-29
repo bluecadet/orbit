@@ -3,24 +3,14 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build",
-        "build:manifest",
-        "build:ts"
-      ]
+      "dependsOn": ["^build", "build:manifest", "build:ts"]
     },
     "build:ts": {
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     },
     "build:manifest": {
-      "dependsOn": [
-        "build:ts"
-      ],
-      "outputs": [
-        "dist/custom-elements.json"
-      ]
+      "dependsOn": ["build:ts"],
+      "outputs": ["dist/custom-elements.json"]
     }
   }
 }

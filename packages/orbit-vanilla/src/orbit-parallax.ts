@@ -1,7 +1,8 @@
-import { html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { scroll } from "motion";
-import { MotionAwareElement } from './motion-preference';
+
+import { MotionAwareElement } from "./motion-preference";
 
 /**
  * Represents the range in which a parallax element should be updated.
@@ -37,13 +38,13 @@ interface InternalParallaxAPI {
 /**
  * Singleton manager for all parallax instances.
  * This class coordinates updates and shared resources across all parallax elements.
- * 
+ *
  * Key responsibilities:
  * 1. Managing scroll updates efficiently using Motion's scroll utility
  * 2. Coordinating viewport size changes
  * 3. Tracking active parallax elements
  * 4. Maintaining private APIs for each element
- * 
+ *
  * Design decisions:
  * - Uses singleton pattern to ensure single source of truth for scroll handling
  * - Leverages WeakMap for memory-safe private API storage
@@ -61,17 +62,22 @@ class ParallaxManager {
   /** ResizeObserver for efficient viewport size monitoring */
   private resizeObserver: ResizeObserver;
   /** WeakMap storing private APIs for each element */
-  private readonly internalAPI = new WeakMap<OrbitParallax, InternalParallaxAPI>();
+  private readonly internalAPI = new WeakMap<
+    OrbitParallax,
+    InternalParallaxAPI
+  >();
 
   private constructor() {
     // Use ResizeObserver instead of resize event for better performance
-    this.resizeObserver = new ResizeObserver(_ => {
+    this.resizeObserver = new ResizeObserver((_) => {
       this.viewportHeight = window.innerHeight;
-      this.elements.forEach(element => {
-        this.internalAPI.get(element)?.updateVisibilityRange(this.viewportHeight);
+      this.elements.forEach((element) => {
+        this.internalAPI
+          .get(element)
+          ?.updateVisibilityRange(this.viewportHeight);
       });
     });
-    
+
     this.resizeObserver.observe(document.documentElement);
   }
 
@@ -93,7 +99,7 @@ class ParallaxManager {
     this.elements.add(element);
     this.internalAPI.set(element, api);
     api.updateVisibilityRange(this.viewportHeight);
-    
+
     // Only start scroll subscription if this is the first element
     if (wasEmpty) {
       this.startUpdates();
@@ -118,7 +124,7 @@ class ParallaxManager {
    */
   private startUpdates() {
     if (!this.scrollSubscription) {
-      this.scrollSubscription = scroll((_, {y}) => {
+      this.scrollSubscription = scroll((_, { y }) => {
         this.updateElements(y.current);
       });
     }
@@ -140,7 +146,7 @@ class ParallaxManager {
    */
   private updateElements(scrollY: number) {
     const viewportCenter = this.viewportHeight / 2;
-    
+
     for (const element of this.elements) {
       const api = this.internalAPI.get(element);
       if (!api) continue;
@@ -166,13 +172,13 @@ class ParallaxManager {
 
 /**
  * A custom element that creates a parallax scrolling effect on its contents.
- * 
+ *
  * Features:
  * - Efficient scroll handling using Motion
  * - Visibility-based updates for performance
  * - Shared resource management
  * - Memory-safe implementation
- * 
+ *
  * @example
  * ```html
  * <orbit-parallax speed="0.5">
@@ -180,7 +186,7 @@ class ParallaxManager {
  * </orbit-parallax>
  * ```
  */
-@customElement('orbit-parallax')
+@customElement("orbit-parallax")
 export class OrbitParallax extends MotionAwareElement {
   static styles = css`
     :host {
@@ -219,7 +225,7 @@ export class OrbitParallax extends MotionAwareElement {
     this.#visibilityRange = {
       start: elementGlobalTop - viewportHeight - maxTravelDistance,
       end: elementGlobalTop + rect.height + maxTravelDistance,
-      maxTravel: maxTravelDistance
+      maxTravel: maxTravelDistance,
     };
   }
 
@@ -231,9 +237,10 @@ export class OrbitParallax extends MotionAwareElement {
    */
   #updateTransform(viewportCenter: number, viewportHeight: number): void {
     const rect = this.getBoundingClientRect();
-    const elementCenter = rect.top + (rect.height / 2);
-    
-    const distanceFromCenter = (viewportCenter - elementCenter) / (viewportHeight / 2);
+    const elementCenter = rect.top + rect.height / 2;
+
+    const distanceFromCenter =
+      (viewportCenter - elementCenter) / (viewportHeight / 2);
     const clampedDistance = Math.max(-1, Math.min(1, distanceFromCenter));
     const offset = clampedDistance * (1 - this.speed) * (rect.height / 2);
     this.style.transform = `translate3d(0, ${offset}px, 0)`;
@@ -246,7 +253,7 @@ export class OrbitParallax extends MotionAwareElement {
       ParallaxManager.getInstance().addElement(this, {
         updateVisibilityRange: this.#updateVisibilityRange.bind(this),
         updateTransform: this.#updateTransform.bind(this),
-        visibilityRange: this.#visibilityRange
+        visibilityRange: this.#visibilityRange,
       });
     }
   }
@@ -276,6 +283,6 @@ export class OrbitParallax extends MotionAwareElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'orbit-parallax': OrbitParallax;
+    "orbit-parallax": OrbitParallax;
   }
 }

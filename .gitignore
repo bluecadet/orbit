@@ -55,3 +55,6 @@ storybook-static
 
 # AI Agent rules
 .windsurfrules
+
+# tooling cache
+.cache

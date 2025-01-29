@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement } from "lit";
 
 /**
  * Manages motion preferences across the application.
@@ -6,19 +6,22 @@ import { LitElement } from 'lit';
  */
 class MotionPreferenceManager {
   private static instance: MotionPreferenceManager;
-  private readonly STORAGE_KEY = 'orbit-reduced-motion';
+  private readonly STORAGE_KEY = "orbit-reduced-motion";
   private mediaQuery: MediaQueryList;
   private listeners: Set<(reduced: boolean) => void> = new Set();
   private userOverride: boolean | null = null;
 
   private constructor() {
-    this.mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    this.mediaQuery.addEventListener('change', this.handleSystemPreferenceChange);
-    
+    this.mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    this.mediaQuery.addEventListener(
+      "change",
+      this.handleSystemPreferenceChange,
+    );
+
     // Load user preference from storage
     const stored = localStorage.getItem(this.STORAGE_KEY);
     if (stored !== null) {
-      this.userOverride = stored === 'true';
+      this.userOverride = stored === "true";
     }
   }
 
@@ -65,7 +68,7 @@ class MotionPreferenceManager {
     this.listeners.add(callback);
     // Immediately notify of current state
     callback(this.reducedMotion);
-    
+
     return () => {
       this.listeners.delete(callback);
     };
@@ -79,7 +82,7 @@ class MotionPreferenceManager {
 
   private notifyListeners(): void {
     const reduced = this.reducedMotion;
-    this.listeners.forEach(listener => listener(reduced));
+    this.listeners.forEach((listener) => listener(reduced));
   }
 }
 
@@ -89,7 +92,7 @@ class MotionPreferenceManager {
 export class MotionAwareElement extends LitElement {
   protected motionManager = MotionPreferenceManager.getInstance();
   private unsubscribe?: () => void;
-  
+
   protected get reducedMotion(): boolean {
     return this.motionManager.reducedMotion;
   }
@@ -97,12 +100,14 @@ export class MotionAwareElement extends LitElement {
   protected onMotionPreferenceChange(): void {
     this.requestUpdate();
   }
-  
+
   override connectedCallback(): void {
     super.connectedCallback();
-    this.unsubscribe = this.motionManager.subscribe(() => this.onMotionPreferenceChange());
+    this.unsubscribe = this.motionManager.subscribe(() =>
+      this.onMotionPreferenceChange(),
+    );
   }
-  
+
   override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.unsubscribe?.();
