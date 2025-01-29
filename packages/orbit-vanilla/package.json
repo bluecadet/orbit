@@ -4,6 +4,7 @@
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
+  "files": ["dist"],
   "exports": {
     "./orbit-parallax": {
       "types": "./dist/orbit-parallax.d.ts",
@@ -23,8 +24,8 @@
     "./custom-elements.json": "./dist/custom-elements.json"
   },
   "scripts": {
+    "build:ts": "tsup",
     "build:manifest": "cem analyze --litelement --globs 'src/**/*.ts' --outdir dist",
-    "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

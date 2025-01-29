@@ -4,6 +4,7 @@
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
+  "files": ["dist"],
   "exports": {
     "./orbit-parallax": {
       "types": "./dist/orbit-parallax.d.ts",

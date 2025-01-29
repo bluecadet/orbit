@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build",
+        "build:manifest",
+        "build:ts"
+      ]
+    },
+    "build:ts": {
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "build:manifest": {
+      "dependsOn": [
+        "build:ts"
+      ],
+      "outputs": [
+        "dist/custom-elements.json"
+      ]
+    }
+  }
+}
