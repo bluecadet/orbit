@@ -18,9 +18,12 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
-    "format": "prettier --check . --ignore-path ../../.gitignore"
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@repo/eslint": "*",
     "@repo/prettier": "*",
     "@repo/typescript": "*",
     "eslint": "^9.19.0",

@@ -1,4 +1,10 @@
 {
   "extends": "@repo/typescript/base.json",
-  "include": ["src"]
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "types": ["node"]
+  },
+  "include": [".storybook/*", "src"]
 }

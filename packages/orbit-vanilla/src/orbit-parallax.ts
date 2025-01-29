@@ -54,7 +54,7 @@ interface InternalParallaxAPI {
 class ParallaxManager {
   private static instance: ParallaxManager;
   /** Set of all active parallax elements */
-  private elements: Set<OrbitParallax> = new Set();
+  private elements = new Set<OrbitParallax>();
   /** Active scroll subscription from Motion */
   private scrollSubscription: ReturnType<typeof scroll> | null = null;
   /** Current viewport height, cached to avoid repeated DOM access */
@@ -69,7 +69,7 @@ class ParallaxManager {
 
   private constructor() {
     // Use ResizeObserver instead of resize event for better performance
-    this.resizeObserver = new ResizeObserver((_) => {
+    this.resizeObserver = new ResizeObserver(() => {
       this.viewportHeight = window.innerHeight;
       this.elements.forEach((element) => {
         this.internalAPI

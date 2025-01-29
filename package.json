@@ -7,7 +7,10 @@
     "clean:root": "git clean -xdf .turbo node_modules",
     "clean": "turbo clean clean:root",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
-    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache"
+    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
+    "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
+    "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
+    "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "turbo": "^2.3.3"

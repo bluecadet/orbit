@@ -7,7 +7,9 @@
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
     "clean": "git clean -xdf .turbo node_modules storybook-static .cache",
-    "format": "prettier --check . --ignore-path ../../.gitignore"
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@bluecadet/orbit-vanilla": "*",
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
+    "@repo/eslint": "*",
     "@repo/prettier": "*",
     "@repo/typescript": "*",
     "@storybook/addon-essentials": "^8.4.6",

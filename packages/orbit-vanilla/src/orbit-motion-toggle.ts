@@ -14,7 +14,7 @@ import { MotionAwareElement, motionPreference } from "./motion-preference";
  */
 @customElement("orbit-motion-toggle")
 export class OrbitMotionToggle extends MotionAwareElement {
-  private handleToggle() {
+  private handleToggle(this: void) {
     motionPreference.setReducedMotion(!motionPreference.reducedMotion);
   }
 

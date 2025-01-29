@@ -8,7 +8,7 @@ class MotionPreferenceManager {
   private static instance: MotionPreferenceManager;
   private readonly STORAGE_KEY = "orbit-reduced-motion";
   private mediaQuery: MediaQueryList;
-  private listeners: Set<(reduced: boolean) => void> = new Set();
+  private listeners = new Set<(reduced: boolean) => void>();
   private userOverride: boolean | null = null;
 
   private constructor() {

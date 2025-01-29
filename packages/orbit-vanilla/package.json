@@ -30,10 +30,13 @@
     "build:manifest": "cem analyze --litelement --globs 'src/**/*.ts' --outdir dist",
     "dev": "tsup --watch",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
-    "format": "prettier --check . --ignore-path ../../.gitignore"
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@repo/eslint": "*",
     "@repo/prettier": "*",
     "@repo/typescript": "*",
     "eslint": "^9.19.0",
