@@ -35,13 +35,11 @@
     "tsup": "^8.0.2"
   },
   "peerDependencies": {
-    "lit": "^3.2.1"
+    "lit": "^3.2.1",
+    "motion": "^12.0.6"
   },
   "publishConfig": {
     "access": "public"
   },
-  "customElements": "dist/custom-elements.json",
-  "dependencies": {
-    "motion": "^12.0.6"
-  }
+  "customElements": "dist/custom-elements.json"
 }
