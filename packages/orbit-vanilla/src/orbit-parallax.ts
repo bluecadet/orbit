@@ -32,7 +32,7 @@ interface InternalParallaxAPI {
   /** Updates the element's transform based on its position relative to viewport center */
   updateTransform(viewportCenter: number, viewportHeight: number): void;
   /** The current visibility range of the element */
-  visibilityRange?: VisibilityRange;
+  getVisibilityRange: () => VisibilityRange | undefined;
 }
 
 /**
@@ -151,7 +151,7 @@ class ParallaxManager {
       const api = this.internalAPI.get(element);
       if (!api) continue;
 
-      const range = api.visibilityRange;
+      const range = api.getVisibilityRange();
       if (!range || scrollY < range.start || scrollY > range.end) {
         continue;
       }
@@ -236,6 +236,7 @@ export class OrbitParallax extends MotionAwareElement {
    * - Maximum transform at the edges of the visibility range
    */
   #updateTransform(viewportCenter: number, viewportHeight: number): void {
+    console.log("updateTransform");
     const rect = this.getBoundingClientRect();
     const elementCenter = rect.top + rect.height / 2;
 
@@ -253,7 +254,7 @@ export class OrbitParallax extends MotionAwareElement {
       ParallaxManager.getInstance().addElement(this, {
         updateVisibilityRange: this.#updateVisibilityRange.bind(this),
         updateTransform: this.#updateTransform.bind(this),
-        visibilityRange: this.#visibilityRange,
+        getVisibilityRange: () => this.#visibilityRange,
       });
     }
   }
