@@ -13,5 +13,16 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
-  render: () => html` <orbit-motion-toggle></orbit-motion-toggle> `,
+  render: (args) => {
+    return html`
+      <orbit-motion-toggle>
+        <span slot="enabled-label">${args["enabled-label"]}</span>
+        <span slot="disabled-label">${args["disabled-label"]}</span>
+      </orbit-motion-toggle>
+    `;
+  },
+  args: {
+    "enabled-label": "Motion enabled",
+    "disabled-label": "Motion disabled",
+  },
 };

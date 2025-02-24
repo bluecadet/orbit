@@ -10,8 +10,8 @@ import { MotionAwareElement, motionPreference } from "./motion-preference";
  * @example
  * ```html
  * <orbit-motion-toggle>
- *   <span slot="enable-label">Turn on animations</span>
- *   <span slot="disable-label">Turn off animations</span>
+ *   <span slot="enabled-label">Turn on animations</span>
+ *   <span slot="disabled-label">Turn off animations</span>
  * </orbit-motion-toggle>
  * ```
  */
@@ -19,7 +19,7 @@ import { MotionAwareElement, motionPreference } from "./motion-preference";
 export class OrbitMotionToggle extends MotionAwareElement {
   private handleToggle(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
-    motionPreference.setReducedMotion(checked);
+    motionPreference.setReducedMotion(!checked);
   }
 
   protected render() {
@@ -27,15 +27,15 @@ export class OrbitMotionToggle extends MotionAwareElement {
       <label class="motion-toggle">
         <input
           type="checkbox"
-          .checked=${motionPreference.reducedMotion}
+          .checked=${!motionPreference.reducedMotion}
           @change=${this.handleToggle}
         />
         <span class="label">
-          <slot name="enable-label" ?hidden=${!motionPreference.reducedMotion}>
-            Enable motion
+          <slot name="enabled-label" ?hidden=${motionPreference.reducedMotion}>
+            Motion enabled
           </slot>
-          <slot name="disable-label" ?hidden=${motionPreference.reducedMotion}>
-            Disable motion
+          <slot name="disabled-label" ?hidden=${!motionPreference.reducedMotion}>
+            Motion disabled
           </slot>
         </span>
       </label>
