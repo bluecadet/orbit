@@ -12,6 +12,11 @@
       "types": "./dist/orbit-parallax.d.ts",
       "import": "./dist/orbit-parallax.js",
       "require": "./dist/orbit-parallax.cjs"
+    },
+    "./orbit-motion-toggle": {
+      "types": "./dist/orbit-motion-toggle.d.ts",
+      "import": "./dist/orbit-motion-toggle.js",
+      "require": "./dist/orbit-motion-toggle.cjs"
     }
   },
   "scripts": {
