@@ -1,7 +1,7 @@
-import { html } from "lit";
+import { html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 
-import { MotionAwareElement, motionPreference } from "./motion-preference";
+import { MotionPreferenceController } from "./motion-preference";
 
 /**
  * A toggle checkbox for controlling motion preferences.
@@ -16,10 +16,12 @@ import { MotionAwareElement, motionPreference } from "./motion-preference";
  * ```
  */
 @customElement("orbit-motion-toggle")
-export class OrbitMotionToggle extends MotionAwareElement {
+export class OrbitMotionToggle extends LitElement {
+  private reduceMotionController = new MotionPreferenceController(this);
+
   private handleToggle(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
-    motionPreference.setReducedMotion(!checked);
+    this.reduceMotionController.setReducedMotion(!checked);
   }
 
   protected render() {
@@ -27,14 +29,20 @@ export class OrbitMotionToggle extends MotionAwareElement {
       <label class="motion-toggle">
         <input
           type="checkbox"
-          .checked=${!motionPreference.reducedMotion}
+          .checked=${!this.reduceMotionController.reduce}
           @change=${this.handleToggle}
         />
         <span class="label">
-          <slot name="enabled-label" ?hidden=${motionPreference.reducedMotion}>
+          <slot
+            name="enabled-label"
+            ?hidden=${this.reduceMotionController.reduce}
+          >
             Motion enabled
           </slot>
-          <slot name="disabled-label" ?hidden=${!motionPreference.reducedMotion}>
+          <slot
+            name="disabled-label"
+            ?hidden=${!this.reduceMotionController.reduce}
+          >
             Motion disabled
           </slot>
         </span>

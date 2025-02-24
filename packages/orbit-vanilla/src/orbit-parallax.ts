@@ -1,8 +1,8 @@
-import { css, html } from "lit";
+import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { scroll } from "motion";
 
-import { MotionAwareElement } from "./motion-preference";
+import { MotionPreferenceController } from "./motion-preference";
 
 /**
  * Represents the range in which a parallax element should be updated.
@@ -187,7 +187,7 @@ class ParallaxManager {
  * ```
  */
 @customElement("orbit-parallax")
-export class OrbitParallax extends MotionAwareElement {
+export class OrbitParallax extends LitElement {
   static styles = css`
     :host {
       display: block;
@@ -200,6 +200,11 @@ export class OrbitParallax extends MotionAwareElement {
       display: block;
     }
   `;
+
+  private motionPrefController = new MotionPreferenceController(
+    this,
+    this.onMotionPreferenceChange,
+  );
 
   /**
    * Controls the speed and direction of the parallax effect.
@@ -246,8 +251,8 @@ export class OrbitParallax extends MotionAwareElement {
     this.style.transform = `translate3d(0, ${offset}px, 0)`;
   }
 
-  protected override onMotionPreferenceChange(): void {
-    if (this.reducedMotion) {
+  protected onMotionPreferenceChange(): void {
+    if (this.motionPrefController.reduce) {
       ParallaxManager.getInstance().removeElement(this);
     } else {
       ParallaxManager.getInstance().addElement(this, {

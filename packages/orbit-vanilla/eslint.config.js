@@ -13,14 +13,14 @@ export default [
     ...wcConfigs["flat/recommended"],
     settings: {
       wc: {
-        elementBaseClasses: ["LitElement", "MotionAwareElement"],
+        elementBaseClasses: ["LitElement"],
       },
     },
   },
   litConfigs["flat/recommended"],
   {
-    "rules": {
+    rules: {
       "@typescript-eslint/unbound-method": "off", // Lit automatically binds methods
-    }
-  }
+    },
+  },
 ];

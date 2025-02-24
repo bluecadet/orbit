@@ -1,4 +1,4 @@
-import { LitElement } from "lit";
+import { ReactiveController, ReactiveControllerHost } from "lit";
 
 /**
  * Manages motion preferences across the application.
@@ -157,31 +157,39 @@ export class MotionPreferenceManager {
 }
 
 /**
- * Base class for components that need motion preference awareness
+ * Reactive controller for managing motion preferences.
+ * Automatically updates the host element when the preference changes.
  */
-export class MotionAwareElement extends LitElement {
-  protected motionManager = MotionPreferenceManager.getInstance();
-  private unsubscribe?: () => void;
+export class MotionPreferenceController implements ReactiveController {
+  private host: ReactiveControllerHost;
+  private unsubscribe: (() => void) | undefined;
+  private onChangeCallback: ((reduce: boolean) => void) | undefined;
 
-  protected get reducedMotion(): boolean {
-    return this.motionManager.reducedMotion;
+  public get reduce() {
+    return MotionPreferenceManager.reducedMotion;
   }
 
-  protected onMotionPreferenceChange(): void {
-    this.requestUpdate();
+  public setReducedMotion(value: boolean) {
+    MotionPreferenceManager.getInstance().setReducedMotion(value);
   }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-    this.unsubscribe = this.motionManager.subscribe(() =>
-      this.onMotionPreferenceChange(),
-    );
+  constructor(
+    host: ReactiveControllerHost,
+    onChangeCallback?: (reduce: boolean) => void,
+  ) {
+    (this.host = host).addController(this);
+    this.onChangeCallback = onChangeCallback;
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
+  hostConnected() {
+    this.unsubscribe = MotionPreferenceManager.subscribe(() => {
+      this.host.requestUpdate();
+      this.onChangeCallback?.(this.reduce);
+    });
+  }
+
+  hostDisconnected() {
     this.unsubscribe?.();
+    this.unsubscribe = undefined;
   }
 }
-
-export const motionPreference = MotionPreferenceManager.getInstance();

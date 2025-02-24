@@ -8,7 +8,7 @@ export default defineConfig((options) => ({
   ],
   format: ["cjs", "esm"],
   dts: true,
-  sourcemap: true,
+  sourcemap: false,
   external: ["lit", "motion"],
   ...options,
 }));
