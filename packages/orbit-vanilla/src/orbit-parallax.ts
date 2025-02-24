@@ -236,7 +236,6 @@ export class OrbitParallax extends MotionAwareElement {
    * - Maximum transform at the edges of the visibility range
    */
   #updateTransform(viewportCenter: number, viewportHeight: number): void {
-    console.log("updateTransform");
     const rect = this.getBoundingClientRect();
     const elementCenter = rect.top + rect.height / 2;
 
