@@ -1,6 +1,6 @@
 {
   "name": "@bluecadet/orbit-react",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
@@ -37,7 +37,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@bluecadet/orbit-vanilla": "0.0.0",
+    "@bluecadet/orbit-vanilla": "0.0.1",
     "@lit/react": "^1.0.6",
     "lit": "^3.2.1"
   },
