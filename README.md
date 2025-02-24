@@ -2,6 +2,9 @@
 
 A set of packages for declarative animations on the web.
 
+> [!WARNING]  
+> This package is currently in development and APIs may change.
+
 ## Packages
 
 This monorepo contains the following packages:

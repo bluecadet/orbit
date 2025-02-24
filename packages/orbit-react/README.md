@@ -2,7 +2,8 @@
 
 React wrapper components for @bluecadet/orbit-vanilla.
 
-> ⚠️ This package is currently in development and APIs may change.
+> [!WARNING]  
+> This package is currently in development and APIs may change.
 
 ## Installation
 
