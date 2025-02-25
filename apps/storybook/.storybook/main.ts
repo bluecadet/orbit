@@ -1,30 +1,25 @@
+import { dirname, join } from "path";
 import type { StorybookConfig } from "@storybook/web-components-vite";
-/**
- * This function is used to resolve the absolute path of a package.
- * It is needed in projects that use Yarn PnP or are set up within a monorepo.
- */
+
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: ["@storybook/addon-essentials"],
+  addons: [getAbsolutePath("@storybook/addon-essentials")],
 
   framework: {
-    name: "@storybook/web-components-vite",
-    options: {},
+    name: getAbsolutePath("@storybook/web-components-vite"),
+    options: {
+      builder: {
+        viteConfigPath: '.storybook/vite.config.ts',
+      }
+    },
   },
+
   docs: {
     autodocs: true,
-  },
-
-  async viteFinal(config) {
-    // Merge custom configuration into the default config
-    const { mergeConfig } = await import("vite");
-    const { default: tailwindcss } = await import("@tailwindcss/vite");
-
-    return mergeConfig(config, {
-      plugins: [
-        tailwindcss()
-      ],
-    });
-  },
+  }
 };
 export default config;
+
+function getAbsolutePath(value: string): string {
+  return dirname(require.resolve(join(value, "package.json")));
+}

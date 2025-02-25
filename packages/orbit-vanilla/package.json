@@ -1,12 +1,12 @@
 {
   "name": "@bluecadet/orbit-vanilla",
   "version": "0.0.1",
-  "sideEffects": false,
   "license": "MIT",
   "type": "module",
   "files": [
     "dist"
   ],
+  "sideEffects": true,
   "exports": {
     "./orbit-parallax": {
       "types": "./dist/orbit-parallax.d.ts",

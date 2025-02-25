@@ -6,6 +6,8 @@ import {consume, createContext, provide} from '@lit/context';
 
 const carouselContext = createContext<EmblaCarouselType | null>("carouselApi");
 
+console.log("Hello from orbit-carousel.ts");
+
 @customElement("orbit-carousel")
 export class OrbitCarousel extends LitElement {
   static styles = css`
@@ -27,6 +29,8 @@ export class OrbitCarousel extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    console.log("Hello from OrbitCarousel connectedCallback");
 
     const container = this.querySelector('ul')!;
     const slides = this.querySelectorAll<HTMLElement>('ul li');
