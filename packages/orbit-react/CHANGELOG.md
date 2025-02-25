@@ -1,5 +1,12 @@
 # @bluecadet/orbit-react
 
+## 0.2.0
+
+### Patch Changes
+
+- Updated dependencies [231227f]
+  - @bluecadet/orbit-vanilla@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes

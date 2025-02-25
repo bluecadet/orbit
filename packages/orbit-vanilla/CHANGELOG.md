@@ -1,5 +1,11 @@
 # @bluecadet/orbit-vanilla
 
+## 0.2.0
+
+### Minor Changes
+
+- 231227f: support carousel slide container as non immediate child of orbit-carousel
+
 ## 0.1.0
 
 ### Minor Changes
