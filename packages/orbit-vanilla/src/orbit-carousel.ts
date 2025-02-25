@@ -1,12 +1,11 @@
+import type { EmblaCarouselType } from "embla-carousel";
+import { consume, createContext, provide } from "@lit/context";
+import EmblaCarousel from "embla-carousel";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { css, html, LitElement } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import EmblaCarousel, { type EmblaCarouselType } from 'embla-carousel';
-import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
-import {consume, createContext, provide} from '@lit/context';
 
 const carouselContext = createContext<EmblaCarouselType | null>("carouselApi");
-
-console.log("Hello from orbit-carousel.ts");
 
 @customElement("orbit-carousel")
 export class OrbitCarousel extends LitElement {
@@ -15,51 +14,47 @@ export class OrbitCarousel extends LitElement {
       display: block;
       overflow: hidden;
     }
-
-    ::slotted(ul) {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-    }
   `;
 
-  @provide({context: carouselContext})
-  carouselApi: EmblaCarouselType | null = null;
+  @provide({ context: carouselContext })
+  private carouselApi: EmblaCarouselType | null = null;
 
   connectedCallback() {
     super.connectedCallback();
 
-    console.log("Hello from OrbitCarousel connectedCallback");
+    const container = this.querySelector<HTMLElement>(
+      '[data-orbit-part="carousel-container"]',
+    )!;
+    const slides = this.querySelectorAll<HTMLElement>(
+      '[data-orbit-part="carousel-container"] > *',
+    );
 
-    const container = this.querySelector('ul')!;
-    const slides = this.querySelectorAll<HTMLElement>('ul li');
-
-    this.carouselApi = EmblaCarousel(this, {
-      container,
-      slides,
-      align: 'start',
-      skipSnaps: true,
-    }, [WheelGesturesPlugin()]);
+    this.carouselApi = EmblaCarousel(
+      this,
+      {
+        container,
+        slides,
+        align: "start",
+        skipSnaps: true,
+      },
+      [WheelGesturesPlugin()],
+    );
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.carouselApi?.destroy();
   }
-  
+
   protected render() {
-    return html`
-        <slot></slot>
-    `;
+    return html` <slot></slot> `;
   }
 }
 
 @customElement("orbit-carousel-controls")
 export class OrbitCarouselControls extends LitElement {
-
-  @consume({context: carouselContext})
-  carouselApi?: EmblaCarouselType | null;
+  @consume({ context: carouselContext })
+  private carouselApi?: EmblaCarouselType | null;
 
   @state()
   private canScrollPrev = false;
@@ -70,14 +65,14 @@ export class OrbitCarouselControls extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this._onSelect = this._onSelect.bind(this);
-    this.carouselApi?.on('select', this._onSelect);
-    this.carouselApi?.on('init', this._onSelect);
+    this.carouselApi?.on("select", this._onSelect);
+    this.carouselApi?.on("init", this._onSelect);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.carouselApi?.off('select', this._onSelect);
-    this.carouselApi?.off('init', this._onSelect);
+    this.carouselApi?.off("select", this._onSelect);
+    this.carouselApi?.off("init", this._onSelect);
   }
 
   private _onSelect(emblaApi: EmblaCarouselType) {
@@ -88,38 +83,35 @@ export class OrbitCarouselControls extends LitElement {
   private _prevClick() {
     this.carouselApi?.scrollPrev(false);
   }
-  
+
   private _nextClick() {
     this.carouselApi?.scrollNext(false);
   }
 
-  
   protected render() {
     return html`
-        <button @click=${this._prevClick} ?disabled=${!this.canScrollPrev}>
-          <slot name="previous">Previous</slot>
-        </button>
-        <button @click=${this._nextClick} ?disabled=${!this.canScrollNext}>
-          <slot name="next">Next</slot>
-        </button>
+      <button @click=${this._prevClick} ?disabled=${!this.canScrollPrev}>
+        <slot name="previous">Previous</slot>
+      </button>
+      <button @click=${this._nextClick} ?disabled=${!this.canScrollNext}>
+        <slot name="next">Next</slot>
+      </button>
     `;
   }
 }
 
-
 @customElement("orbit-carousel-progress")
 export class OrbitCarouselProgress extends LitElement {
-
-  @consume({context: carouselContext})
-  carouselApi?: EmblaCarouselType | null;
+  @consume({ context: carouselContext })
+  private carouselApi?: EmblaCarouselType | null;
 
   @state()
-  current = 0;
+  private current = 0;
 
   connectedCallback() {
     super.connectedCallback();
 
-    this.carouselApi?.on('select', () => {
+    this.carouselApi?.on("select", () => {
       this.current = this.carouselApi?.selectedScrollSnap() ?? 0;
     });
   }
@@ -127,12 +119,12 @@ export class OrbitCarouselProgress extends LitElement {
   get total() {
     return this.carouselApi?.slideNodes().length ?? 0;
   }
-  
+
   protected render() {
     return html`
-        <span>${this.current + 1}</span>
-        <slot name="separator">/</slot>
-        <span>${this.total}</span>
+      <span>${this.current + 1}</span>
+      <slot name="separator">/</slot>
+      <span>${this.total}</span>
     `;
   }
 }

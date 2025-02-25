@@ -15,7 +15,7 @@ type Story = StoryObj;
 export const Default: Story = {
   render: () =>
     html`<orbit-carousel>
-      <ul class="gap-8">
+      <ul class="gap-8 flex" data-orbit-part="carousel-container">
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
@@ -31,7 +31,7 @@ export const Default: Story = {
 export const DifferentSizes: Story = {
   render: () =>
     html`<orbit-carousel>
-      <ul class="gap-8">
+      <ul class="gap-8 flex" data-orbit-part="carousel-container">
         <li class="w-80 h-40 bg-blue-500 shrink-0"></li>
         <li class="w-40 h-50 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
@@ -47,7 +47,7 @@ export const DifferentSizes: Story = {
 export const Controls: Story = {
   render: () =>
     html`<orbit-carousel>
-      <ul class="gap-8">
+      <ul class="gap-8 flex" data-orbit-part="carousel-container">
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
@@ -64,7 +64,7 @@ export const Controls: Story = {
 export const Progress: Story = {
   render: () =>
     html`<orbit-carousel>
-      <ul class="gap-8">
+      <ul class="gap-8 flex" data-orbit-part="carousel-container">
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
@@ -87,7 +87,7 @@ export const Progress: Story = {
 export const Images: Story = {
   render: () =>
     html`<orbit-carousel>
-      <ul class="gap-8">
+      <ul class="gap-8 flex" data-orbit-part="carousel-container">
         <li class="w-60 h-60 bg-blue-500 shrink-0">
           <img
             src="https://picsum.photos/id/24/200"
