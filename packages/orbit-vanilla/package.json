@@ -23,6 +23,11 @@
       "import": "./dist/orbit-motion-toggle.js",
       "require": "./dist/orbit-motion-toggle.cjs"
     },
+    "./orbit-carousel": {
+      "types": "./dist/orbit-carousel.d.ts",
+      "import": "./dist/orbit-carousel.js",
+      "require": "./dist/orbit-carousel.cjs"
+    },
     "./custom-elements.json": "./dist/custom-elements.json"
   },
   "scripts": {
@@ -51,5 +56,8 @@
     "motion": "^12.0.6"
   },
   "customElements": "dist/custom-elements.json",
-  "prettier": "@repo/prettier"
+  "prettier": "@repo/prettier",
+  "dependencies": {
+    "@lit/context": "^1.1.4"
+  }
 }
