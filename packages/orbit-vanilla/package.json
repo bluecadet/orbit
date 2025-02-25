@@ -58,6 +58,8 @@
   "customElements": "dist/custom-elements.json",
   "prettier": "@repo/prettier",
   "dependencies": {
-    "@lit/context": "^1.1.4"
+    "@lit/context": "^1.1.4",
+    "embla-carousel": "^8.5.2",
+    "embla-carousel-wheel-gestures": "^8.0.1"
   }
 }
