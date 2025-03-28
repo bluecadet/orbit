@@ -10,10 +10,16 @@
     "dist"
   ],
   "exports": {
-    "./index": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "scripts": {
@@ -32,6 +38,9 @@
     "prettier": "^3.4.2",
     "tsup": "^8.0.2",
     "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "embla-carousel": "^8.5.2"
   },
   "repository": {
     "type": "git",
