@@ -45,5 +45,14 @@
     "motion": "^12.0.6",
     "react": "^18.3.1 || ^19.0.0"
   },
-  "prettier": "@repo/prettier"
+  "prettier": "@repo/prettier",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluecadet/orbit.git"
+  },
+  "author": "Bluecadet",
+  "bugs": {
+    "url": "https://github.com/bluecadet/orbit/issues"
+  },
+  "homepage": "https://github.com/bluecadet/orbit/blob/main/packages/orbit-react#readme"
 }
