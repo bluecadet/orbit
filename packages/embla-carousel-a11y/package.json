@@ -28,16 +28,19 @@
     "clean": "git clean -xdf .turbo node_modules dist .cache",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest"
   },
   "devDependencies": {
     "@repo/eslint": "*",
     "@repo/prettier": "*",
     "@repo/typescript": "*",
     "eslint": "^9.19.0",
+    "happy-dom": "^17.4.4",
     "prettier": "^3.4.2",
     "tsup": "^8.0.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.9"
   },
   "peerDependencies": {
     "embla-carousel": "^8.5.2"
