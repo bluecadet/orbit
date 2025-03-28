@@ -1,5 +1,13 @@
 # @bluecadet/orbit-react
 
+## 0.2.1
+
+### Patch Changes
+
+- e510fa6: Add repo/homepage to package.jsons
+- Updated dependencies [e510fa6]
+  - @bluecadet/orbit-vanilla@0.2.1
+
 ## 0.2.0
 
 ### Patch Changes

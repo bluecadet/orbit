@@ -1,5 +1,11 @@
 # @bluecadet/orbit-vanilla
 
+## 0.2.1
+
+### Patch Changes
+
+- e510fa6: Add repo/homepage to package.jsons
+
 ## 0.2.0
 
 ### Minor Changes
