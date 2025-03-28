@@ -6,19 +6,19 @@ export type OptionsType = CreateOptionsType<{
    * If not provided, will look for aria-label/aria-labelledby on the root element
    */
   carouselLabel?: string;
-  
+
   /**
    * The selector for slide elements
    * Default: selects direct children of the carousel container
    */
   slideSelector?: string;
-  
+
   /**
    * Whether to announce slide changes to screen readers
    * Default: true
    */
   announceSlideChanges?: boolean;
-  
+
   /**
    * Custom announcement template for slide changes
    * Variables: {{currentSlide}}, {{totalSlides}}

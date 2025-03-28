@@ -25,15 +25,15 @@ pnpm add embla-carousel embla-carousel-a11y
 ## Basic Usage
 
 ```typescript
-import EmblaCarousel from 'embla-carousel'
-import A11y from 'embla-carousel-a11y'
+import EmblaCarousel from "embla-carousel";
+import A11y from "embla-carousel-a11y";
 
 // Initialize Embla with the A11y plugin
-const emblaNode = document.querySelector('.embla')
-const embla = EmblaCarousel(emblaNode, { loop: true }, [A11y()])
+const emblaNode = document.querySelector(".embla");
+const embla = EmblaCarousel(emblaNode, { loop: true }, [A11y()]);
 
 // The plugin is accessible through embla.plugins().a11y
-const a11yPlugin = embla.plugins().a11y
+const a11yPlugin = embla.plugins().a11y;
 ```
 
 ## API Reference
@@ -42,20 +42,20 @@ const a11yPlugin = embla.plugins().a11y
 
 The A11y plugin accepts the following options:
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `carouselLabel` | `string \| undefined` | `undefined` | A custom label for the carousel. If not provided, uses an existing `aria-label` or sets a default. |
-| `slideSelector` | `string \| undefined` | `undefined` | Custom selector for slide elements. If not provided, uses Embla's default slide nodes. |
-| `announceSlideChanges` | `boolean` | `true` | Whether to announce slide changes to screen readers. |
-| `slideAnnouncementTemplate` | `string` | `"Slide {{currentSlide}} of {{totalSlides}}"` | Template for slide change announcements. Use `{{currentSlide}}` and `{{totalSlides}}` as variables. |
-| `showDeveloperWarnings` | `boolean` | `true` | Whether to show developer console warnings in non-production environments. |
+| Option                      | Type                  | Default                                       | Description                                                                                         |
+| --------------------------- | --------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `carouselLabel`             | `string \| undefined` | `undefined`                                   | A custom label for the carousel. If not provided, uses an existing `aria-label` or sets a default.  |
+| `slideSelector`             | `string \| undefined` | `undefined`                                   | Custom selector for slide elements. If not provided, uses Embla's default slide nodes.              |
+| `announceSlideChanges`      | `boolean`             | `true`                                        | Whether to announce slide changes to screen readers.                                                |
+| `slideAnnouncementTemplate` | `string`              | `"Slide {{currentSlide}} of {{totalSlides}}"` | Template for slide change announcements. Use `{{currentSlide}}` and `{{totalSlides}}` as variables. |
+| `showDeveloperWarnings`     | `boolean`             | `true`                                        | Whether to show developer console warnings in non-production environments.                          |
 
 ### Plugin Methods
 
 The A11y plugin exposes the following methods:
 
-| Method | Description |
-|--------|-------------|
+| Method     | Description                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ |
 | `update()` | Updates ARIA attributes based on the current carousel state. Called automatically when the selected slide changes. |
 
 ## Accessibility Features
@@ -117,24 +117,24 @@ For maximum accessibility, we recommend:
 3. **Pause autoplay on interaction**: If using autoplay, pause it when users interact with the carousel.
 
 ```js
-const options = { 
+const options = {
   loop: true,
-  autoplay: true 
-}
+  autoplay: true,
+};
 
-const embla = EmblaCarousel(emblaNode, options, [A11y()])
+const embla = EmblaCarousel(emblaNode, options, [A11y()]);
 
 // Pause autoplay on focus within the carousel
-emblaNode.addEventListener('focusin', () => {
-  embla.plugins().autoplay.stop()
-})
+emblaNode.addEventListener("focusin", () => {
+  embla.plugins().autoplay.stop();
+});
 
 // Resume when focus leaves
-emblaNode.addEventListener('focusout', (event) => {
+emblaNode.addEventListener("focusout", (event) => {
   if (!emblaNode.contains(event.relatedTarget)) {
-    embla.plugins().autoplay.play()
+    embla.plugins().autoplay.play();
   }
-})
+});
 ```
 
 ## Why Accessibility Matters
