@@ -19,26 +19,21 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
+    # prevents this action from running on forks
+    if: github.repository == 'bluecadet/orbit'
+    
+    name: Build Storybook
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: 'package.json'
-          cache: npm
+      - name: Install dependencies
+        uses: ./.github/actions/setup
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: Build Storybook
         working-directory: ./apps/storybook
@@ -51,6 +46,9 @@ jobs:
 
   # Deployment job
   deploy:
+    # prevents this action from running on forks
+    if: github.repository == 'bluecadet/orbit'
+    
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
