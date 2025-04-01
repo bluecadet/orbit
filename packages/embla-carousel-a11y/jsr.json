@@ -1,0 +1,16 @@
+{
+  "name": "@bluecadet/embla-carousel-a11y",
+  "version": "0.1.0",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "include": [
+    "README.md",
+    "src/**/*.ts",
+    "package.json"
+  ],
+  "exclude": [
+    "src/__tests__"
+  ]
+}

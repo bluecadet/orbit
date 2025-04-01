@@ -1,0 +1,20 @@
+{
+  "name": "@bluecadet/orbit-vanilla",
+  "version": "0.2.1",
+  "license": "MIT",
+  "exports": {
+    "./orbit-parallax": "./src/orbit-parallax.ts",
+    "./motion-preference": "./src/motion-preference.ts",
+    "./orbit-motion-toggle": "./src/orbit-motion-toggle.ts",
+    "./orbit-carousel": "./src/orbit-carousel.ts",
+    "./custom-elements.json": "./dist/custom-elements.json"
+  },
+  "include": [
+    "README.md",
+    "src/**/*.ts",
+    "package.json"
+  ],
+  "exclude": [
+    "!dist/custom-elements.json"
+  ]
+}

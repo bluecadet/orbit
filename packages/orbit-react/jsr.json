@@ -1,0 +1,15 @@
+{
+  "name": "@bluecadet/orbit-react",
+  "version": "0.2.1",
+  "license": "MIT",
+  "exports": {
+    "./orbit-parallax": "./src/orbit-parallax.ts",
+    "./use-motion-preference": "./src/use-motion-preference.ts",
+    "./orbit-motion-toggle": "./src/orbit-motion-toggle.ts"
+  },
+  "include": [
+    "README.md",
+    "src/**/*.ts",
+    "package.json"
+  ]
+}
