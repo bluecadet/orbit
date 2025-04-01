@@ -1,4 +1,4 @@
-# embla-carousel-a11y
+# @bluecadet/embla-carousel-a11y
 
 ## 0.1.0
 
