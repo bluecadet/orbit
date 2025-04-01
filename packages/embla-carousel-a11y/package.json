@@ -1,8 +1,7 @@
 {
-  "name": "embla-carousel-a11y",
+  "name": "@bluecadet/embla-carousel-a11y",
   "version": "0.1.0",
   "description": "A11y Plugin for Embla Carousel",
-  "main": "index.js",
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
