@@ -6,7 +6,9 @@
   "files": [
     "dist"
   ],
-  "sideEffects": true,
+  "sideEffects": [
+    "./dist/orbit-*"
+  ],
   "exports": {
     "./orbit-parallax": {
       "types": "./dist/orbit-parallax.d.ts",
