@@ -15,22 +15,24 @@ import {
 
 class MockMediaQuery {
   #matches = false;
-  #listeners: (( ev: MediaQueryListEvent) => void)[] = [];
+  #listeners: ((ev: MediaQueryListEvent) => void)[] = [];
 
   set matches(value: boolean) {
     this.#matches = value;
-    this.#listeners.forEach((listener) => listener({matches: value} as MediaQueryListEvent));
+    this.#listeners.forEach((listener) =>
+      listener({ matches: value } as MediaQueryListEvent),
+    );
   }
 
   get matches() {
     return this.#matches;
   }
 
-  addEventListener(_: string, listener: ( ev: MediaQueryListEvent) => void) {
+  addEventListener(_: string, listener: (ev: MediaQueryListEvent) => void) {
     this.#listeners.push(listener);
   }
 
-  removeEventListener(_: string, listener: ( ev: MediaQueryListEvent) => void) {
+  removeEventListener(_: string, listener: (ev: MediaQueryListEvent) => void) {
     this.#listeners = this.#listeners.filter((l) => l !== listener);
   }
 
@@ -74,7 +76,7 @@ describe("MotionPreferenceManager", () => {
 
     MotionPreferenceManager.resetInstance();
     mockSystemMotionPreference.matches = true;
-    
+
     expect(MotionPreferenceManager.getInstance().reducedMotion).toBe(true);
   });
 
@@ -100,31 +102,30 @@ describe("MotionPreferenceManager", () => {
     localStorage.clear();
     expect(MotionPreferenceManager.getInstance().reducedMotion).toBe(false);
 
-    
     localStorage.setItem(MOTION_PREF_STORAGE_KEY, "false");
     expect(MotionPreferenceManager.getInstance().reducedMotion).toBe(false);
   });
 
-  it('should notify subscribers when preference changes', () => {
-      const manager = MotionPreferenceManager.getInstance();
-      const callback = vi.fn();
-  
-      const unsubscribe = manager.subscribe(callback);
-      expect(callback).not.toHaveBeenCalled();
-  
-      manager.setReducedMotion(true);
-      expect(callback).toHaveBeenCalledWith(true);
-  
-      manager.setReducedMotion(false);
-      expect(callback).toHaveBeenCalledWith(false);
-  
-      // Test unsubscribe
-      unsubscribe();
-      manager.setReducedMotion(true);
-      expect(callback).toHaveBeenCalledTimes(2); // No additional calls
+  it("should notify subscribers when preference changes", () => {
+    const manager = MotionPreferenceManager.getInstance();
+    const callback = vi.fn();
+
+    const unsubscribe = manager.subscribe(callback);
+    expect(callback).not.toHaveBeenCalled();
+
+    manager.setReducedMotion(true);
+    expect(callback).toHaveBeenCalledWith(true);
+
+    manager.setReducedMotion(false);
+    expect(callback).toHaveBeenCalledWith(false);
+
+    // Test unsubscribe
+    unsubscribe();
+    manager.setReducedMotion(true);
+    expect(callback).toHaveBeenCalledTimes(2); // No additional calls
   });
-  
-  it('user preference should override system preference', () => {
+
+  it("user preference should override system preference", () => {
     // Set system preference to true
     mockSystemMotionPreference.matches = false;
     const manager = MotionPreferenceManager.getInstance();
@@ -137,13 +138,12 @@ describe("MotionPreferenceManager", () => {
 
     manager.setReducedMotion(true);
     expect(manager.reducedMotion).toBe(true);
-    
+
     mockSystemMotionPreference.matches = false;
     expect(manager.reducedMotion).toBe(true);
-
   });
 
-  it('should fall back to system preference when user preference is reset', () => {
+  it("should fall back to system preference when user preference is reset", () => {
     // Set system preference to true
     mockSystemMotionPreference.matches = true;
     const manager = MotionPreferenceManager.getInstance();
@@ -163,7 +163,7 @@ describe("MotionPreferenceManager", () => {
     expect(manager.reducedMotion).toBe(false);
   });
 
-  it('should notify subscribers immediately when immediate option is true', () => {
+  it("should notify subscribers immediately when immediate option is true", () => {
     const manager = MotionPreferenceManager.getInstance();
     const callback = vi.fn();
 
@@ -171,7 +171,7 @@ describe("MotionPreferenceManager", () => {
     expect(callback).toHaveBeenCalledWith(manager.reducedMotion);
   });
 
-  it('should handle AbortSignal for subscription cleanup', () => {
+  it("should handle AbortSignal for subscription cleanup", () => {
     const manager = MotionPreferenceManager.getInstance();
     const callback = vi.fn();
     const controller = new AbortController();
@@ -185,7 +185,7 @@ describe("MotionPreferenceManager", () => {
     expect(callback).toHaveBeenCalledTimes(1); // No additional calls
   });
 
-  it('should provide static access to reducedMotion', () => {
+  it("should provide static access to reducedMotion", () => {
     // Set system preference to true
     mockSystemMotionPreference.matches = true;
 
@@ -196,7 +196,7 @@ describe("MotionPreferenceManager", () => {
     expect(MotionPreferenceManager.reducedMotion).toBe(false);
   });
 
-  it('should provide static subscribe method', () => {
+  it("should provide static subscribe method", () => {
     const callback = vi.fn();
     const unsubscribe = MotionPreferenceManager.subscribe(callback);
 
@@ -206,7 +206,7 @@ describe("MotionPreferenceManager", () => {
     unsubscribe();
   });
 
-  it('should not notify subscribers when system preference changes with user override', () => {
+  it("should not notify subscribers when system preference changes with user override", () => {
     const manager = MotionPreferenceManager.getInstance();
     const callback = vi.fn();
     manager.subscribe(callback);
@@ -214,7 +214,7 @@ describe("MotionPreferenceManager", () => {
     // Set user preference
     manager.setReducedMotion(false);
     callback.mockClear();
-    
+
     mockSystemMotionPreference.matches = true;
     mockSystemMotionPreference.matches = false;
     mockSystemMotionPreference.matches = true;
@@ -223,27 +223,24 @@ describe("MotionPreferenceManager", () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  
-
-  it('should not notify subscribers if new value is same as old', () => {
+  it("should not notify subscribers if new value is same as old", () => {
     const manager = MotionPreferenceManager.getInstance();
     const callback = vi.fn();
 
     manager.subscribe(callback);
-    
+
     mockSystemMotionPreference.matches = false;
     mockSystemMotionPreference.matches = false;
     mockSystemMotionPreference.matches = false;
-    
+
     expect(callback).not.toHaveBeenCalled();
-    
+
     mockSystemMotionPreference.matches = true;
     mockSystemMotionPreference.matches = true;
     mockSystemMotionPreference.matches = true;
 
     expect(callback).toHaveBeenCalledTimes(1);
     expect(callback).toHaveBeenCalledWith(true);
-
 
     manager.setReducedMotion(false);
 
@@ -254,7 +251,7 @@ describe("MotionPreferenceManager", () => {
     manager.setReducedMotion(false);
 
     expect(callback).not.toHaveBeenCalled();
-    
+
     manager.setReducedMotion(true);
     manager.setReducedMotion(true);
     manager.setReducedMotion(true);

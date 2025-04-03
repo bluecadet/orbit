@@ -21,15 +21,15 @@ export class MotionPreferenceManager {
   constructor() {
     // Initialize mediaQuery - explicitly call window.matchMedia to ensure it's captured by test spy
     this.#mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    
+
     this.#mediaQuery.addEventListener(
       "change",
       this.#handleSystemPreferenceChange.bind(this),
     );
 
-    // Load user preference from storage 
+    // Load user preference from storage
     const stored = localStorage.getItem(this.#storageKey);
-    
+
     if (stored !== null) {
       this.#userOverride = stored === "true";
       this.#updateRootClass();
@@ -45,7 +45,7 @@ export class MotionPreferenceManager {
     return MotionPreferenceManager.#instance;
   }
 
-  /** 
+  /**
    * @internal used for testing
    */
   static resetInstance() {
