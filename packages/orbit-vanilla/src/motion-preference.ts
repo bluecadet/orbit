@@ -1,14 +1,16 @@
 import { ReactiveController, ReactiveControllerHost } from "lit";
 
+export const MOTION_PREF_STORAGE_KEY = "orbit-reduced-motion";
+
 /**
  * Manages motion preferences across the application.
  * Handles 'prefers-reduced-motion' system preference, user overrides, and persistence.
  * User overrides are stored in localStorage, and always take precedence over system settings.
  */
 export class MotionPreferenceManager {
-  static #instance: MotionPreferenceManager;
+  static #instance: MotionPreferenceManager | undefined;
 
-  #STORAGE_KEY = "bc-reduced-motion";
+  #storageKey = MOTION_PREF_STORAGE_KEY;
 
   #mediaQuery: MediaQueryList;
 
@@ -17,19 +19,23 @@ export class MotionPreferenceManager {
   #userOverride: boolean | null = null;
 
   constructor() {
+    // Initialize mediaQuery - explicitly call window.matchMedia to ensure it's captured by test spy
     this.#mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    
     this.#mediaQuery.addEventListener(
       "change",
       this.#handleSystemPreferenceChange.bind(this),
     );
 
-    // Load user preference from storage
-    const stored = localStorage.getItem(this.#STORAGE_KEY);
-
+    // Load user preference from storage 
+    const stored = localStorage.getItem(this.#storageKey);
+    
     if (stored !== null) {
       this.#userOverride = stored === "true";
       this.#updateRootClass();
     }
+
+    this.#notifyListeners();
   }
 
   static getInstance(): MotionPreferenceManager {
@@ -39,12 +45,25 @@ export class MotionPreferenceManager {
     return MotionPreferenceManager.#instance;
   }
 
+  /** 
+   * @internal used for testing
+   */
+  static resetInstance() {
+    if (MotionPreferenceManager.#instance) {
+      MotionPreferenceManager.#instance.destroy();
+    }
+    MotionPreferenceManager.#instance = undefined;
+  }
+
   /**
    * Get current reduced motion preference
    * Prioritizes user override over system preference
    */
   get reducedMotion(): boolean {
-    return this.#userOverride ?? this.#mediaQuery.matches;
+    if (this.#userOverride !== null) {
+      return this.#userOverride;
+    }
+    return this.#mediaQuery.matches;
   }
 
   /**
@@ -63,7 +82,7 @@ export class MotionPreferenceManager {
    */
   setReducedMotion(reduced: boolean) {
     this.#userOverride = reduced;
-    localStorage.setItem(this.#STORAGE_KEY, String(reduced));
+    localStorage.setItem(this.#storageKey, String(reduced));
     this.#updateRootClass();
     this.#notifyListeners();
   }
@@ -73,7 +92,8 @@ export class MotionPreferenceManager {
    */
   resetToSystemPreference() {
     this.#userOverride = null;
-    localStorage.removeItem(this.#STORAGE_KEY);
+    localStorage.removeItem(this.#storageKey);
+    this.#updateRootClass();
     this.#notifyListeners();
   }
 
@@ -127,15 +147,24 @@ export class MotionPreferenceManager {
    */
   #handleSystemPreferenceChange = () => {
     if (this.#userOverride === null) {
+      this.#updateRootClass();
       this.#notifyListeners();
     }
   };
+
+  #lastNotifiedValue: boolean | null = null;
 
   /**
    * @private
    */
   #notifyListeners() {
     const reduced = this.reducedMotion;
+
+    if (this.#lastNotifiedValue === reduced) {
+      return;
+    }
+
+    this.#lastNotifiedValue = reduced;
     this.#listeners.forEach((listener) => listener(reduced));
   }
 
@@ -153,6 +182,13 @@ export class MotionPreferenceManager {
         root.classList.remove("force-reduced-motion");
       }
     }
+  }
+
+  destroy() {
+    this.#mediaQuery.removeEventListener(
+      "change",
+      this.#handleSystemPreferenceChange.bind(this),
+    );
   }
 }
 
@@ -182,9 +218,9 @@ export class MotionPreferenceController implements ReactiveController {
   }
 
   hostConnected() {
-    this.unsubscribe = MotionPreferenceManager.subscribe(() => {
+    this.unsubscribe = MotionPreferenceManager.subscribe((reduce) => {
       this.host.requestUpdate();
-      this.onChangeCallback?.(this.reduce);
+      this.onChangeCallback?.(reduce);
     });
   }
 
