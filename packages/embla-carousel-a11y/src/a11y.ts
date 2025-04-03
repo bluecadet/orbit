@@ -185,7 +185,7 @@ class A11yPlugin implements A11yPluginType {
    */
   private warnDev(message: string): void {
     if (this.isDevMode && this.options.showDeveloperWarnings) {
-      console.warn(`[embla-carousel-a11y]: ${message}`);
+      console.warn(`[@bluecadet/embla-carousel-a11y]: ${message}`);
     }
   }
 

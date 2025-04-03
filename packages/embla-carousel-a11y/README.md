@@ -13,20 +13,20 @@ An accessibility plugin for [Embla Carousel](https://www.embla-carousel.com/) th
 
 ```bash
 # npm
-npm install embla-carousel embla-carousel-a11y
+npm install embla-carousel @bluecadet/embla-carousel-a11y
 
 # yarn
-yarn add embla-carousel embla-carousel-a11y
+yarn add embla-carousel @bluecadet/embla-carousel-a11y
 
 # pnpm
-pnpm add embla-carousel embla-carousel-a11y
+pnpm add embla-carousel @bluecadet/embla-carousel-a11y
 ```
 
 ## Basic Usage
 
 ```typescript
 import EmblaCarousel from "embla-carousel";
-import A11y from "embla-carousel-a11y";
+import A11y from "@bluecadet/embla-carousel-a11y";
 
 // Initialize Embla with the A11y plugin
 const emblaNode = document.querySelector(".embla");
