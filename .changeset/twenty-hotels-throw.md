@@ -1,5 +1,5 @@
 ---
-"embla-carousel-a11y": patch
+"@bluecadet/embla-carousel-a11y": patch
 "@bluecadet/orbit-vanilla": patch
 "@bluecadet/orbit-react": patch
 ---
