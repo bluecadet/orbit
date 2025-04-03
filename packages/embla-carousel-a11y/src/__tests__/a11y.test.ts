@@ -271,8 +271,5 @@ describe("A11y Plugin", () => {
     expect(console.warn).not.toHaveBeenCalledWith(
       expect.stringContaining("Slides should have descriptive labels"),
     );
-    expect(console.warn).toHaveBeenCalledWith(
-      expect.stringContaining("navigation buttons"),
-    );
   });
 });

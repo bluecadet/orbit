@@ -11,7 +11,7 @@
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
+    "test": "turbo run test -- run",
     "version": "changeset version",
     "release": "turbo build && changeset publish"
   },
