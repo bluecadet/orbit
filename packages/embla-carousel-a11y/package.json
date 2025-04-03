@@ -48,9 +48,31 @@
     "type": "git",
     "url": "git+https://github.com/bluecadet/orbit.git"
   },
-  "author": "Bluecadet",
+  "maintainers": [
+    {
+      "name": "Clay Tercek",
+      "url": "https://github.com/claytercek"
+    }
+  ],
+  "author": {
+    "name": "Bluecadet",
+    "url": "https://bluecadet.com"
+  },
   "bugs": {
     "url": "https://github.com/bluecadet/orbit/issues"
   },
-  "homepage": "https://github.com/bluecadet/orbit/blob/main/packages/embla-carousel-a11y#readme"
+  "homepage": "https://github.com/bluecadet/orbit/blob/main/packages/embla-carousel-a11y#readme",
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "react",
+    "js",
+    "ts",
+    "javascript",
+    "typescript",
+    "carousel",
+    "slider",
+    "drag",
+    "aria"
+  ]
 }

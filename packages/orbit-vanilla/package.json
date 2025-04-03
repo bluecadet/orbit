@@ -6,7 +6,9 @@
   "files": [
     "dist"
   ],
-  "sideEffects": true,
+  "sideEffects": [
+    "./dist/orbit-*"
+  ],
   "exports": {
     "./orbit-parallax": {
       "types": "./dist/orbit-parallax.d.ts",
@@ -37,7 +39,8 @@
     "clean": "git clean -xdf .turbo node_modules dist .cache",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
@@ -47,9 +50,11 @@
     "eslint": "^9.19.0",
     "eslint-plugin-lit": "^1.15.0",
     "eslint-plugin-wc": "^2.2.1",
+    "happy-dom": "^17.4.4",
     "prettier": "^3.4.2",
     "tsup": "^8.0.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.1.1"
   },
   "peerDependencies": {
     "lit": "^3.2.1",
@@ -66,9 +71,29 @@
     "type": "git",
     "url": "git+https://github.com/bluecadet/orbit.git"
   },
-  "author": "Bluecadet",
+  "maintainers": [
+    {
+      "name": "Clay Tercek",
+      "url": "https://github.com/claytercek"
+    }
+  ],
+  "author": {
+    "name": "Bluecadet",
+    "url": "https://bluecadet.com"
+  },
   "bugs": {
     "url": "https://github.com/bluecadet/orbit/issues"
   },
-  "homepage": "https://github.com/bluecadet/orbit/blob/main/packages/orbit-vanilla#readme"
+  "homepage": "https://github.com/bluecadet/orbit/blob/main/packages/orbit-vanilla#readme",
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "react",
+    "motion",
+    "animation",
+    "javascript",
+    "js",
+    "ts",
+    "typescript"
+  ]
 }
