@@ -1,5 +1,11 @@
 # @bluecadet/orbit-vanilla
 
+## 0.2.2
+
+### Patch Changes
+
+- 22fa9f1: Bug fixes, package.json updates, adding some tests
+
 ## 0.2.1
 
 ### Patch Changes

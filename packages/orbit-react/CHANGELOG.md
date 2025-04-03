@@ -1,5 +1,13 @@
 # @bluecadet/orbit-react
 
+## 0.2.2
+
+### Patch Changes
+
+- 22fa9f1: Bug fixes, package.json updates, adding some tests
+- Updated dependencies [22fa9f1]
+  - @bluecadet/orbit-vanilla@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes
