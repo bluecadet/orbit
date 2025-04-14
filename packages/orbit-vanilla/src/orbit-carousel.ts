@@ -1,4 +1,5 @@
 import type { EmblaCarouselType } from "embla-carousel";
+import A11y from "@bluecadet/embla-carousel-a11y";
 import { consume, createContext, provide } from "@lit/context";
 import EmblaCarousel from "embla-carousel";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
@@ -37,7 +38,7 @@ export class OrbitCarousel extends LitElement {
         align: "start",
         skipSnaps: true,
       },
-      [WheelGesturesPlugin()],
+      [WheelGesturesPlugin(), A11y()],
     );
   }
 
