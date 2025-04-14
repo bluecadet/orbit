@@ -35,7 +35,8 @@
   "scripts": {
     "build:ts": "tsup",
     "build:manifest": "cem analyze --litelement --globs 'src/**/*.ts' --outdir dist",
-    "dev": "tsup --watch",
+    "dev:ts": "tsup --watch",
+    "dev:manifest": "cem analyze --litelement --globs 'src/**/*.ts' --outdir dist --watch",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
@@ -43,7 +44,7 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@custom-elements-manifest/analyzer": "^0.10.4",
     "@repo/eslint": "*",
     "@repo/prettier": "*",
     "@repo/typescript": "*",
