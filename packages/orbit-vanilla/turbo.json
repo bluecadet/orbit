@@ -11,6 +11,19 @@
     "build:manifest": {
       "dependsOn": ["build:ts"],
       "outputs": ["dist/custom-elements.json"]
+    },
+    "dev:ts": {
+      "persistent": true,
+      "cache": false
+    },
+    "dev:manifest": {
+      "persistent": true,
+      "cache": false
+    },
+    "dev": {
+      "with": ["dev:manifest", "dev:ts"],
+      "cache": false,
+      "persistent": true
     }
   }
 }

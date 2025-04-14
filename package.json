@@ -16,7 +16,7 @@
     "release": "turbo build && changeset publish"
   },
   "devDependencies": {
-    "turbo": "^2.3.3"
+    "turbo": "^2.5.0"
   },
   "engines": {
     "node": ">=23"
