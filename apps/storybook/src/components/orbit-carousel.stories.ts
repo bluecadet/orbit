@@ -6,7 +6,6 @@ import "@bluecadet/orbit-vanilla/orbit-carousel";
 const meta: Meta = {
   title: "Components/Carousel",
   component: "orbit-carousel",
-  tags: ["autodocs"],
 };
 
 export default meta;
