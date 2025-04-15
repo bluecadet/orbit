@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/web-components";
 import customElements from "@bluecadet/orbit-vanilla/custom-elements.json" assert { type: "json" };
 import { setCustomElementsManifest } from "@storybook/web-components";
+import theme from "./theme";
 
 import "./styles.css";
 
@@ -23,6 +24,9 @@ setCustomElementsManifest(modifiedElementManifest);
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      theme
+    },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
@@ -31,6 +35,9 @@ const preview: Preview = {
       },
     },
   },
+  tags: [
+    'autodocs',
+  ]
 };
 
 export default preview;
