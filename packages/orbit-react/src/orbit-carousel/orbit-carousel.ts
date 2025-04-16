@@ -1,6 +1,6 @@
 import React from "react";
-import { createComponent } from "@lit/react";
 import { OrbitCarousel as OrbitCarouselVanilla } from "@bluecadet/orbit-vanilla/orbit-carousel";
+import { createComponent } from "@lit/react";
 
 export const OrbitCarousel = createComponent({
   tagName: "orbit-carousel",

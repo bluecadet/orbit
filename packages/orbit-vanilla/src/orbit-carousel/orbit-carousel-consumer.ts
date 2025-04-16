@@ -3,8 +3,8 @@ import { consume } from "@lit/context";
 import { type EmblaCarouselType } from "embla-carousel";
 import { LitElement } from "lit";
 import { state } from "lit/decorators.js";
-import { carouselContext } from "./orbit-carousel";
 
+import { carouselContext } from "./orbit-carousel";
 
 // eslint-disable-next-line
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -18,7 +18,9 @@ export declare class CarouselConsumerInterface {
 /**
  * Mixin that adds carousel API subscription handling to a LitElement
  */
-export const CarouselConsumerMixin = <T extends Constructor<LitElement>>(superClass: T) => {
+export const CarouselConsumerMixin = <T extends Constructor<LitElement>>(
+  superClass: T,
+) => {
   class CarouselConsumerElement extends superClass {
     @consume({ context: carouselContext, subscribe: true })
     @state()
@@ -26,15 +28,17 @@ export const CarouselConsumerMixin = <T extends Constructor<LitElement>>(superCl
 
     updated(changedProperties: Map<string, unknown>) {
       super.updated?.(changedProperties);
-  
+
       if (changedProperties.has("carouselApi")) {
-        const oldCarouselApi = changedProperties.get("carouselApi") as EmblaCarouselType | undefined;
-  
+        const oldCarouselApi = changedProperties.get("carouselApi") as
+          | EmblaCarouselType
+          | undefined;
+
         if (oldCarouselApi) {
           // Call disconnected handler if API exists
           this.carouselDisconnected(oldCarouselApi);
         }
-  
+
         if (this.carouselApi) {
           // Call connected handler if API exists
           this.carouselConnected(this.carouselApi);
@@ -66,6 +70,7 @@ export const CarouselConsumerMixin = <T extends Constructor<LitElement>>(superCl
       super.disconnectedCallback();
     }
   }
-  
-  return CarouselConsumerElement as unknown as Constructor<CarouselConsumerInterface> & T;
-}
+
+  return CarouselConsumerElement as unknown as Constructor<CarouselConsumerInterface> &
+    T;
+};

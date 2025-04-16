@@ -16,7 +16,7 @@ export class OrbitCarouselProgress extends CarouselConsumerMixin(LitElement) {
   private get totalElement() {
     return this.querySelector("[data-orbit-total]");
   }
-  
+
   private get total() {
     return this.carouselApi?.slideNodes().length ?? 0;
   }

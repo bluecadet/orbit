@@ -1,0 +1,121 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Installation" />
+
+# Installation
+
+Orbit offers two packages to fit your project needs:
+
+1. **Vanilla Web Components**: Use with any framework or vanilla JavaScript
+2. **React Wrappers**: Convenient React components for React applications
+
+## Vanilla Web Components
+
+Install the core package using npm, yarn, or pnpm:
+
+```bash
+# Using npm
+npm install @bluecadet/orbit-vanilla lit motion
+
+# Using yarn
+yarn add @bluecadet/orbit-vanilla lit motion
+
+# Using pnpm
+pnpm add @bluecadet/orbit-vanilla lit motion
+```
+
+The vanilla package requires the following peer dependencies:
+
+- `lit` (^3.2.1)
+- `motion` (^12.0.6)
+
+### Usage
+
+Import and use the web components in your JavaScript:
+
+```javascript
+// Import specific components
+import "@bluecadet/orbit-vanilla/orbit-parallax";
+import "@bluecadet/orbit-vanilla/orbit-motion-toggle";
+import "@bluecadet/orbit-vanilla/orbit-carousel";
+```
+
+Then use them in your HTML:
+
+```html
+<orbit-parallax speed="0.5">
+  <img src="background.jpg" alt="Parallax background" />
+</orbit-parallax>
+
+<orbit-motion-toggle>
+  <span slot="enabled-label">Animations enabled</span>
+  <span slot="disabled-label">Animations disabled</span>
+</orbit-motion-toggle>
+```
+
+## React Components
+
+If you're using React, install the React wrapper package:
+
+```bash
+# Using npm
+npm install @bluecadet/orbit-react motion
+
+# Using yarn
+yarn add @bluecadet/orbit-react motion
+
+# Using pnpm
+pnpm add @bluecadet/orbit-react motion
+```
+
+The React package requires the following peer dependencies:
+
+- `react` (^18.0.0 or ^19.0.0)
+- `motion` (^12.0.6)
+
+### Usage
+
+Import and use the components in your React application:
+
+```jsx
+import { OrbitCarousel } from "@bluecadet/orbit-react/orbit-carousel";
+import { OrbitMotionToggle } from "@bluecadet/orbit-react/orbit-motion-toggle";
+import { OrbitParallax } from "@bluecadet/orbit-react/orbit-parallax";
+
+function MyComponent() {
+  return (
+    <>
+      <OrbitParallax speed={0.5}>
+        <img src="background.jpg" alt="Parallax background" />
+      </OrbitParallax>
+
+      <OrbitMotionToggle>
+        <span slot="enabled-label">Animations enabled</span>
+        <span slot="disabled-label">Animations disabled</span>
+      </OrbitMotionToggle>
+    </>
+  );
+}
+```
+
+## Using the Motion Preference Hook
+
+The React package also provides a hook for accessing the user's motion preference:
+
+```jsx
+import { useMotionPreference } from "@bluecadet/orbit-react/use-motion-preference";
+
+function MyComponent() {
+  const reducedMotion = useMotionPreference();
+
+  return (
+    <div>
+      {reducedMotion ? (
+        <p>Using simplified animations</p>
+      ) : (
+        <p>Using full animations</p>
+      )}
+    </div>
+  );
+}
+```

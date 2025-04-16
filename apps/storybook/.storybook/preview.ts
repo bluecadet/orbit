@@ -1,8 +1,10 @@
 import type { Preview } from "@storybook/web-components";
-import customElements from "@bluecadet/orbit-vanilla/custom-elements.json" assert { type: "json" };
+import customElements from "@bluecadet/orbit-vanilla/custom-elements.json";
 import { setCustomElementsManifest } from "@storybook/web-components";
+import { prettify } from "htmlfy";
+
 import theme from "./theme";
-import { prettify } from 'htmlfy';
+
 import "./styles.css";
 
 // strip members from modules, as storybook displays them in the controls,
@@ -29,9 +31,9 @@ const preview: Preview = {
       source: {
         transform: (src: string) => {
           // fix indentation/formatting from lit html
-          return prettify(src)
-        }
-      }
+          return prettify(src);
+        },
+      },
     },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -40,7 +42,12 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-  }
+    options: {
+      storySort: {
+        order: ["Introduction", "Installation", "Components"],
+      },
+    },
+  },
 };
 
 export default preview;
