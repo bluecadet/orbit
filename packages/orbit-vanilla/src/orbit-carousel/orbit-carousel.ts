@@ -27,7 +27,7 @@ export interface CarouselOptions {
    * @default false
    */
   dragFree?: boolean;
-  
+
   /**
    * Selector for the slides within the carousel.
    * @default "[data-orbit-slides]"
@@ -39,10 +39,12 @@ export interface CarouselOptions {
    * Use trimSnaps to only use snap points that trigger scrolling or keepSnaps to keep them.
    * @default "trimSnaps"
    */
-  containScroll?: 'trimSnaps' | 'keepSnaps' | false;
+  containScroll?: "trimSnaps" | "keepSnaps" | false;
 }
 
-export const carouselContext = createContext<EmblaCarouselType | null>(Symbol("carouselApi"));
+export const carouselContext = createContext<EmblaCarouselType | null>(
+  Symbol("carouselApi"),
+);
 
 @customElement("orbit-carousel")
 export class OrbitCarousel extends LitElement {
@@ -98,8 +100,11 @@ export class OrbitCarousel extends LitElement {
    * Use trimSnaps to only use snap points that trigger scrolling or keepSnaps to keep them.
    * @default "trimSnaps"
    */
-  @property({ attribute: "contain-scroll", converter: (value) => value === "false" ? false : value })
-  containScroll?: 'trimSnaps' | 'keepSnaps' | false;
+  @property({
+    attribute: "contain-scroll",
+    converter: (value) => (value === "false" ? false : value),
+  })
+  containScroll?: "trimSnaps" | "keepSnaps" | false;
 
   static styles = css`
     :host {
@@ -114,41 +119,49 @@ export class OrbitCarousel extends LitElement {
   protected firstUpdated(): void {
     // Initialize carousel on first update after DOM is ready
     const options = this.buildCarouselOptions();
-    this.carouselApi = EmblaCarousel(
-      this,
-      options,
-      [WheelGesturesPlugin(), A11y()]
-    );
+    this.carouselApi = EmblaCarousel(this, options, [
+      WheelGesturesPlugin(),
+      A11y(),
+    ]);
   }
 
   protected willUpdate(changedProperties: PropertyValues<OrbitCarousel>): void {
     // Only handle reinitialization if carousel is already initialized
     if (!this.carouselApi) return;
-    
+
     // Check if any carousel options have changed
     const optionProps: (keyof CarouselOptions)[] = [
-      "loop", "alignSlides", "forceSnap", "dragFree", "slidesSelector", "containScroll"
+      "loop",
+      "alignSlides",
+      "forceSnap",
+      "dragFree",
+      "slidesSelector",
+      "containScroll",
     ];
-    
-    if (optionProps.some(prop => changedProperties.has(prop))) {
+
+    if (optionProps.some((prop) => changedProperties.has(prop))) {
       this.carouselApi.reInit(this.buildCarouselOptions());
     }
   }
 
   private buildCarouselOptions(): EmblaOptionsType {
     const options: CarouselOptions = { ...OrbitCarousel.defaultOptions };
-    
+
     // Only override with defined properties
     if (this.loop !== undefined) options.loop = this.loop;
     if (this.alignSlides !== undefined) options.alignSlides = this.alignSlides;
     if (this.forceSnap !== undefined) options.forceSnap = this.forceSnap;
     if (this.dragFree !== undefined) options.dragFree = this.dragFree;
-    if (this.slidesSelector !== undefined) options.slidesSelector = this.slidesSelector;
-    if (this.containScroll !== undefined) options.containScroll = this.containScroll;
+    if (this.slidesSelector !== undefined)
+      options.slidesSelector = this.slidesSelector;
+    if (this.containScroll !== undefined)
+      options.containScroll = this.containScroll;
 
     const container = this.querySelector(options.slidesSelector!);
     if (!container || !(container instanceof HTMLElement)) {
-      throw new Error(`Slides container not found for selector: ${options.slidesSelector}`);
+      throw new Error(
+        `Slides container not found for selector: ${options.slidesSelector}`,
+      );
     }
 
     return {
@@ -157,14 +170,14 @@ export class OrbitCarousel extends LitElement {
       align: options.alignSlides,
       skipSnaps: !options.forceSnap,
       container,
-      // Default embla behavior is to allow dragging on ANY child of the 
+      // Default embla behavior is to allow dragging on ANY child of the
       // root element. We want to restrict this to only the carousel container.
       watchDrag: (emblaApi, event) => {
         const target = event.target as HTMLElement;
         // check if the target is a child of the carousel container
         if (!container.contains(target)) return false;
         return true;
-      }
+      },
     };
   }
 

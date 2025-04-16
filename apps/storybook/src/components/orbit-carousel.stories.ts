@@ -27,7 +27,6 @@ const meta: Meta = {
       options: ["trimSnaps", "keepSnaps", false],
     },
   },
-  tags: ["autodocs"],
 };
 
 export default meta;

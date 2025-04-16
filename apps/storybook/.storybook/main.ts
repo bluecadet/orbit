@@ -24,8 +24,8 @@ const config: StorybookConfig = {
   staticDirs: ["../public"],
 
   core: {
-    disableWhatsNewNotifications: true
-  }
+    disableWhatsNewNotifications: true,
+  },
 };
 export default config;
 

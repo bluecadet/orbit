@@ -123,11 +123,9 @@ class ParallaxManager {
    * This is only active when there are elements to update
    */
   private startUpdates() {
-    if (!this.scrollSubscription) {
-      this.scrollSubscription = scroll((_, { y }) => {
-        this.updateElements(y.current);
-      });
-    }
+    this.scrollSubscription ??= scroll((_, { y }) => {
+      this.updateElements(y.current);
+    });
   }
 
   /**
