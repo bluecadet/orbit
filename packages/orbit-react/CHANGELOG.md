@@ -1,5 +1,19 @@
 # @bluecadet/orbit-react
 
+## 0.3.0
+
+### Minor Changes
+
+- 94f275f: New carousel API
+
+### Patch Changes
+
+- 22fa9f1: Bug fixes, package.json updates, adding some tests
+- Updated dependencies [94f275f]
+- Updated dependencies [a1b2d91]
+- Updated dependencies [22fa9f1]
+  - @bluecadet/orbit-vanilla@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
