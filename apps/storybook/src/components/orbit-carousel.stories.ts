@@ -22,6 +22,10 @@ const meta: Meta = {
     "force-snap": { control: "boolean" },
     "drag-free": { control: "boolean" },
     "slides-selector": { control: "text" },
+    "contain-scroll": {
+      control: "select",
+      options: ["trimSnaps", "keepSnaps", false],
+    },
   },
   tags: ["autodocs"],
 };
@@ -35,6 +39,7 @@ export const Default: Story = {
     "align-slides": "start",
     "force-snap": false,
     "drag-free": false,
+    "contain-scroll": "trimSnaps",
   },
   render: (args) => html`
     <orbit-carousel
@@ -42,6 +47,7 @@ export const Default: Story = {
       align-slides=${args["align-slides"]}
       ?force-snap=${args["force-snap"]}
       ?drag-free=${args["drag-free"]}
+      contain-scroll=${args["contain-scroll"]}
     >
       <ul class="gap-8 flex" data-orbit-slides>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
@@ -60,7 +66,7 @@ export const Default: Story = {
         Next
       </orbit-carousel-navigation>
       <orbit-carousel-progress>
-        <span data-orbit-current>{current}</span> / <span data-orbit-total>{total}</span>
+        <span data-orbit-current>1</span> / <span data-orbit-total>8</span>
       </orbit-carousel-progress>
     </orbit-carousel>
   `,
