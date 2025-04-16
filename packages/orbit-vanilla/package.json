@@ -35,6 +35,11 @@
       "import": "./dist/orbit-carousel/orbit-carousel-navigation.js",
       "require": "./dist/orbit-carousel/orbit-carousel-navigation.cjs"
     },
+    "./orbit-carousel/progress": {
+      "types": "./dist/orbit-carousel/orbit-carousel-progress.d.ts",
+      "import": "./dist/orbit-carousel/orbit-carousel-progress.js",
+      "require": "./dist/orbit-carousel/orbit-carousel-progress.cjs"
+    },
     "./custom-elements.json": "./dist/custom-elements.json"
   },
   "scripts": {
