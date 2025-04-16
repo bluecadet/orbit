@@ -33,6 +33,13 @@ export interface CarouselOptions {
    * @default "[data-orbit-slides]"
    */
   slidesSelector?: string;
+
+  /**
+   * Clear leading and trailing empty space that causes excessive scrolling.
+   * Use trimSnaps to only use snap points that trigger scrolling or keepSnaps to keep them.
+   * @default "trimSnaps"
+   */
+  containScroll?: 'trimSnaps' | 'keepSnaps' | false;
 }
 
 export const carouselContext = createContext<EmblaCarouselType | null>(Symbol("carouselApi"));
@@ -48,6 +55,7 @@ export class OrbitCarousel extends LitElement {
     forceSnap: false,
     dragFree: false,
     slidesSelector: "[data-orbit-slides]",
+    containScroll: "trimSnaps",
   } satisfies CarouselOptions;
 
   /**
@@ -85,6 +93,14 @@ export class OrbitCarousel extends LitElement {
   @property({ attribute: "slides-selector" })
   slidesSelector?: string;
 
+  /**
+   * Clear leading and trailing empty space that causes excessive scrolling.
+   * Use trimSnaps to only use snap points that trigger scrolling or keepSnaps to keep them.
+   * @default "trimSnaps"
+   */
+  @property({ attribute: "contain-scroll", converter: (value) => value === "false" ? false : value })
+  containScroll?: 'trimSnaps' | 'keepSnaps' | false;
+
   static styles = css`
     :host {
       display: block;
@@ -111,7 +127,7 @@ export class OrbitCarousel extends LitElement {
     
     // Check if any carousel options have changed
     const optionProps: (keyof CarouselOptions)[] = [
-      "loop", "alignSlides", "forceSnap", "dragFree", "slidesSelector"
+      "loop", "alignSlides", "forceSnap", "dragFree", "slidesSelector", "containScroll"
     ];
     
     if (optionProps.some(prop => changedProperties.has(prop))) {
@@ -128,6 +144,7 @@ export class OrbitCarousel extends LitElement {
     if (this.forceSnap !== undefined) options.forceSnap = this.forceSnap;
     if (this.dragFree !== undefined) options.dragFree = this.dragFree;
     if (this.slidesSelector !== undefined) options.slidesSelector = this.slidesSelector;
+    if (this.containScroll !== undefined) options.containScroll = this.containScroll;
 
     const container = this.querySelector(options.slidesSelector!);
     if (!container || !(container instanceof HTMLElement)) {
