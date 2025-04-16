@@ -1,4 +1,4 @@
-import type { EmblaCarouselType } from "embla-carousel";
+import type { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import A11y from "@bluecadet/embla-carousel-a11y";
 import { createContext, provide } from "@lit/context";
 import EmblaCarousel from "embla-carousel";
@@ -6,7 +6,7 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { css, html, LitElement, PropertyValues } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-interface CarouselOptions {
+export interface CarouselOptions {
   /**
    * Enable or disable infinite looping of the carousel
    * @default false
@@ -18,10 +18,10 @@ interface CarouselOptions {
    */
   alignSlides?: "start" | "center" | "end";
   /**
-   * Allow users to drag past snap intervals.
-   * @default true
+   * When enabled, users cannot drag past snap intervals.
+   * @default false
    */
-  skipSnaps?: boolean;
+  forceSnap?: boolean;
   /**
    * Enables momentum scrolling.
    * @default false
@@ -29,7 +29,7 @@ interface CarouselOptions {
   dragFree?: boolean;
 }
 
-const carouselContext = createContext<EmblaCarouselType | null>("carouselApi");
+export const carouselContext = createContext<EmblaCarouselType | null>(Symbol("carouselApi"));
 
 @customElement("orbit-carousel")
 export class OrbitCarousel extends LitElement {
@@ -39,30 +39,30 @@ export class OrbitCarousel extends LitElement {
   static defaultOptions: CarouselOptions = {
     loop: false,
     alignSlides: "start",
-    skipSnaps: true,
+    forceSnap: false,
     dragFree: false,
   };
 
   /**
-   * Enable or disable infinite looping of the carousel
+   * Enable or disable infinite looping of the carousel.
    * @default false
    */
   @property({ type: Boolean })
   loop?: boolean;
 
   /**
-   * Align the slides within the carousel
+   * Align the slides within the carousel.
    * @default start
    */
   @property({ attribute: "align-slides" })
   alignSlides?: "start" | "center" | "end";
 
   /**
-   * Allow users to drag past snap intervals.
-   * @default true
+   * When enabled, users cannot drag past snap intervals.
+   * @default false
    */
-  @property({ type: Boolean, attribute: "skip-snaps" })
-  skipSnaps?: boolean;
+  @property({ type: Boolean, attribute: "force-snap" })
+  forceSnap?: boolean;
 
   /**
    * Enables momentum scrolling.
@@ -81,40 +81,45 @@ export class OrbitCarousel extends LitElement {
   @provide({ context: carouselContext })
   private carouselApi: EmblaCarouselType | null = null;
 
-  protected willUpdate(changedProperties: PropertyValues<OrbitCarousel>): void {
-    // Build options object based on current property values
+  protected firstUpdated(): void {
+    // Initialize carousel on first update after DOM is ready
     const options = this.buildCarouselOptions();
-    
-    if (!this.carouselApi) {
-      // Initialize carousel on first update
-      this.carouselApi = EmblaCarousel(
-        this,
-        options,
-        [WheelGesturesPlugin(), A11y()]
-      );
-      return;
-    }
+    this.carouselApi = EmblaCarousel(
+      this,
+      options,
+      [WheelGesturesPlugin(), A11y()]
+    );
+  }
 
+  protected willUpdate(changedProperties: PropertyValues<OrbitCarousel>): void {
+    // Only handle reinitialization if carousel is already initialized
+    if (!this.carouselApi) return;
+    
     // Check if any carousel options have changed
     const optionProps: (keyof CarouselOptions)[] = [
-      "loop", "alignSlides", "skipSnaps", "dragFree"
+      "loop", "alignSlides", "forceSnap", "dragFree"
     ];
     
     if (optionProps.some(prop => changedProperties.has(prop))) {
-      this.carouselApi.reInit(options);
+      this.carouselApi.reInit(this.buildCarouselOptions());
     }
   }
 
-  private buildCarouselOptions(): CarouselOptions {
+  private buildCarouselOptions(): EmblaOptionsType {
     const options = { ...OrbitCarousel.defaultOptions };
     
     // Only override with defined properties
     if (this.loop !== undefined) options.loop = this.loop;
     if (this.alignSlides !== undefined) options.alignSlides = this.alignSlides;
-    if (this.skipSnaps !== undefined) options.skipSnaps = this.skipSnaps;
+    if (this.forceSnap !== undefined) options.forceSnap = this.forceSnap;
     if (this.dragFree !== undefined) options.dragFree = this.dragFree;
-    
-    return options;
+
+    return {
+      ...options,
+      // account for some differences in property names / logic
+      align: options.alignSlides,
+      skipSnaps: !options.forceSnap,
+    };
   }
 
   disconnectedCallback() {

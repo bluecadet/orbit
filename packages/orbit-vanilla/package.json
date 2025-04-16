@@ -26,9 +26,14 @@
       "require": "./dist/orbit-motion-toggle.cjs"
     },
     "./orbit-carousel": {
-      "types": "./dist/orbit-carousel.d.ts",
-      "import": "./dist/orbit-carousel.js",
-      "require": "./dist/orbit-carousel.cjs"
+      "types": "./dist/orbit-carousel/index.d.ts",
+      "import": "./dist/orbit-carousel/index.js",
+      "require": "./dist/orbit-carousel/index.cjs"
+    },
+    "./orbit-carousel/navigation": {
+      "types": "./dist/orbit-carousel/orbit-carousel-navigation.d.ts",
+      "import": "./dist/orbit-carousel/orbit-carousel-navigation.js",
+      "require": "./dist/orbit-carousel/orbit-carousel-navigation.cjs"
     },
     "./custom-elements.json": "./dist/custom-elements.json"
   },

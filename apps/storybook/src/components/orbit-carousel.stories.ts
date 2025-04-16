@@ -1,19 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 
 import "@bluecadet/orbit-vanilla/orbit-carousel";
+import "@bluecadet/orbit-vanilla/orbit-carousel/navigation";
+
 import { html } from "lit";
 
 const meta: Meta = {
   title: "Components/Carousel",
   component: "orbit-carousel",
-  tags: ["autodocs"],
+  subcomponents: {
+    "orbit-carousel-navigation": "orbit-carousel-navigation",
+  },
   argTypes: {
     loop: { control: "boolean" },
     "align-slides": {
       control: "select",
       options: ["start", "center", "end"],
     },
-    "skip-snaps": { control: "boolean" },
+    "force-snap": { control: "boolean" },
     "drag-free": { control: "boolean" },
   },
   tags: ["autodocs"],
@@ -26,14 +30,14 @@ export const Default: Story = {
   args: {
     loop: false,
     "align-slides": "start",
-    "skip-snaps": true,
+    "force-snap": false,
     "drag-free": false,
   },
   render: (args) => html`
     <orbit-carousel
       ?loop=${args.loop}
       align-slides=${args["align-slides"]}
-      ?skip-snaps=${args["skip-snaps"]}
+      ?force-snap=${args["force-snap"]}
       ?drag-free=${args["drag-free"]}
     >
       <ul class="gap-8 flex" data-orbit-part="carousel-container">
@@ -46,6 +50,12 @@ export const Default: Story = {
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
       </ul>
+      <orbit-carousel-navigation direction="prev">
+        Previous
+      </orbit-carousel-navigation>
+      <orbit-carousel-navigation direction="next">
+        Next
+      </orbit-carousel-navigation>
     </orbit-carousel>
   `,
 };
