@@ -21,5 +21,7 @@
     "incremental": true,
     "disableSourceOfProjectReferenceRedirect": true,
     "tsBuildInfoFile": "${configDir}/.cache/tsbuildinfo.json",
+    "strictNullChecks": true,
+    "erasableSyntaxOnly": true
   },
 }
