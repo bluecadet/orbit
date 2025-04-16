@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/web-components";
 
 import "@bluecadet/orbit-vanilla/orbit-carousel";
 import "@bluecadet/orbit-vanilla/orbit-carousel/navigation";
+import "@bluecadet/orbit-vanilla/orbit-carousel/progress";
 
 import { html } from "lit";
 
@@ -10,6 +11,7 @@ const meta: Meta = {
   component: "orbit-carousel",
   subcomponents: {
     "orbit-carousel-navigation": "orbit-carousel-navigation",
+    "orbit-carousel-progress": "orbit-carousel-progress",
   },
   argTypes: {
     loop: { control: "boolean" },
@@ -57,6 +59,9 @@ export const Default: Story = {
       <orbit-carousel-navigation direction="next">
         Next
       </orbit-carousel-navigation>
+      <orbit-carousel-progress>
+        <span data-orbit-current>{current}</span> / <span data-orbit-total>{total}</span>
+      </orbit-carousel-progress>
     </orbit-carousel>
   `,
 };

@@ -5,6 +5,11 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @layer base {
+  /* use dark mode */
+  html {
+    color-scheme: dark;
+  }
+  
   body {
     background-color: rgb(27, 28, 29);
   }

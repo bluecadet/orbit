@@ -7,6 +7,7 @@ export default defineConfig((options) => ({
     "src/motion-preference.ts",
     "src/orbit-carousel/index.ts",
     "src/orbit-carousel/orbit-carousel-navigation.ts",
+    "src/orbit-carousel/orbit-carousel-progress.ts",
   ],
   format: ["cjs", "esm"],
   dts: true,
