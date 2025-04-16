@@ -19,6 +19,7 @@ const meta: Meta = {
     },
     "force-snap": { control: "boolean" },
     "drag-free": { control: "boolean" },
+    "slides-selector": { control: "text" },
   },
   tags: ["autodocs"],
 };
@@ -40,7 +41,7 @@ export const Default: Story = {
       ?force-snap=${args["force-snap"]}
       ?drag-free=${args["drag-free"]}
     >
-      <ul class="gap-8 flex" data-orbit-part="carousel-container">
+      <ul class="gap-8 flex" data-orbit-slides>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
         <li class="w-60 h-60 bg-blue-500 shrink-0"></li>
