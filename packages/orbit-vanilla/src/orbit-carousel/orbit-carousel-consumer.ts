@@ -9,7 +9,7 @@ import { carouselContext } from "./orbit-carousel";
 // eslint-disable-next-line
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-declare class CarouselConsumerInterface {
+export declare class CarouselConsumerInterface {
   protected carouselApi?: EmblaCarouselType | null;
   protected carouselConnected(api: EmblaCarouselType): void;
   protected carouselDisconnected(api: EmblaCarouselType): void;

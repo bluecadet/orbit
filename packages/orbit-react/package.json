@@ -17,6 +17,21 @@
       "types": "./dist/orbit-motion-toggle.d.ts",
       "import": "./dist/orbit-motion-toggle.js",
       "require": "./dist/orbit-motion-toggle.cjs"
+    },
+    "./orbit-carousel": {
+      "types": "./dist/orbit-carousel/orbit-carousel.d.ts",
+      "import": "./dist/orbit-carousel/orbit-carousel.js",
+      "require": "./dist/orbit-carousel/orbit-carousel.cjs"
+    },
+    "./orbit-carousel/navigation": {
+      "types": "./dist/orbit-carousel/orbit-carousel-navigation.d.ts",
+      "import": "./dist/orbit-carousel/orbit-carousel-navigation.js",
+      "require": "./dist/orbit-carousel/orbit-carousel-navigation.cjs"
+    },
+    "./orbit-carousel/progress": {
+      "types": "./dist/orbit-carousel/orbit-carousel-progress.d.ts",
+      "import": "./dist/orbit-carousel/orbit-carousel-progress.js",
+      "require": "./dist/orbit-carousel/orbit-carousel-progress.cjs"
     }
   },
   "scripts": {
