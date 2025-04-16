@@ -27,6 +27,12 @@ export interface CarouselOptions {
    * @default false
    */
   dragFree?: boolean;
+  
+  /**
+   * Selector for the slides within the carousel.
+   * @default "[data-orbit-slides]"
+   */
+  slidesSelector?: string;
 }
 
 export const carouselContext = createContext<EmblaCarouselType | null>(Symbol("carouselApi"));
@@ -36,12 +42,13 @@ export class OrbitCarousel extends LitElement {
   /**
    * Default options for all OrbitCarousel instances
    */
-  static defaultOptions: CarouselOptions = {
+  static defaultOptions = {
     loop: false,
     alignSlides: "start",
     forceSnap: false,
     dragFree: false,
-  };
+    slidesSelector: "[data-orbit-slides]",
+  } satisfies CarouselOptions;
 
   /**
    * Enable or disable infinite looping of the carousel.
@@ -71,6 +78,13 @@ export class OrbitCarousel extends LitElement {
   @property({ type: Boolean, attribute: "drag-free" })
   dragFree?: boolean;
 
+  /**
+   * Selector for the slides within the carousel.
+   * @default "[data-orbit-slides]"
+   */
+  @property({ attribute: "slides-selector" })
+  slidesSelector?: string;
+
   static styles = css`
     :host {
       display: block;
@@ -97,7 +111,7 @@ export class OrbitCarousel extends LitElement {
     
     // Check if any carousel options have changed
     const optionProps: (keyof CarouselOptions)[] = [
-      "loop", "alignSlides", "forceSnap", "dragFree"
+      "loop", "alignSlides", "forceSnap", "dragFree", "slidesSelector"
     ];
     
     if (optionProps.some(prop => changedProperties.has(prop))) {
@@ -106,19 +120,34 @@ export class OrbitCarousel extends LitElement {
   }
 
   private buildCarouselOptions(): EmblaOptionsType {
-    const options = { ...OrbitCarousel.defaultOptions };
+    const options: CarouselOptions = { ...OrbitCarousel.defaultOptions };
     
     // Only override with defined properties
     if (this.loop !== undefined) options.loop = this.loop;
     if (this.alignSlides !== undefined) options.alignSlides = this.alignSlides;
     if (this.forceSnap !== undefined) options.forceSnap = this.forceSnap;
     if (this.dragFree !== undefined) options.dragFree = this.dragFree;
+    if (this.slidesSelector !== undefined) options.slidesSelector = this.slidesSelector;
+
+    const container = this.querySelector(options.slidesSelector!);
+    if (!container || !(container instanceof HTMLElement)) {
+      throw new Error(`Slides container not found for selector: ${options.slidesSelector}`);
+    }
 
     return {
       ...options,
       // account for some differences in property names / logic
       align: options.alignSlides,
       skipSnaps: !options.forceSnap,
+      container,
+      // Default embla behavior is to allow dragging on ANY child of the 
+      // root element. We want to restrict this to only the carousel container.
+      watchDrag: (emblaApi, event) => {
+        const target = event.target as HTMLElement;
+        // check if the target is a child of the carousel container
+        if (!container.contains(target)) return false;
+        return true;
+      }
     };
   }
 
