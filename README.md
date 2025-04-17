@@ -17,10 +17,6 @@ Core web components for animation, built with Lit. This package provides the fou
 
 React wrapper components for orbit-vanilla. Provides a React-friendly interface to the core animation components.
 
-### [@bluecadet/embla-carousel-a11y](./packages/embla-carousel-a11y)
-
-Accessibility plugin for embla carousel. Used by the orbit carousel component.
-
 ## Development
 
 This project uses npm workspaces with Turborepo for build orchestration and Changesets for version management.
