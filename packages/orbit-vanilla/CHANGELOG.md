@@ -1,5 +1,11 @@
 # @bluecadet/orbit-vanilla
 
+## 0.3.1
+
+### Patch Changes
+
+- df34a9e: Fix side-effects on carousel exports
+
 ## 0.3.0
 
 ### Minor Changes
